@@ -1,0 +1,31 @@
+@import "../../assets/style/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.user-agreement
+  position relative
+
+  .user-agreement__content
+    position relative
+
+    padding-top 110px
+
+  .user-agreement__close
+    position fixed
+
+    top 30px
+    right 30px
+
+    width 60px
+    height 60px
+
+    background-image url('../../assets/image/close.svg')
+    background-position center center
+    background-size cover
+    background-repeat no-repeat
+
+    cursor pointer
+
+    border-radius 50%
+
+    @media (max-width: 575px)
+      right calc(50% - 30px)

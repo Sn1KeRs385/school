@@ -1,0 +1,130 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.profile-info-head
+  border-radius 10px 10px 0 0
+  background-color white
+  position relative
+  @media screen and (max-width 575px)
+    border-radius 0
+    border-bottom 1px solid $line_color
+
+  &__info
+    display flex
+    flex-direction column
+
+  &__stats
+    margin-top auto
+    display flex
+
+  &__data
+    position relative
+    padding 30px 15px 24px 15px
+
+    @media screen and (max-width 575px)
+      padding 15px 15px 15px 15px
+      display flex
+      align-items stretch
+
+  &__avatar
+    width 140px
+    height 140px
+    border-radius 50%
+    background-position center
+    background-repeat no-repeat
+    background-size cover
+    margin 0 auto 11px auto
+    flex-shrink 0
+
+    @media screen and (max-width 575px)
+      width 70px
+      height 70px
+      margin 0 15px 0 0
+
+  &__name
+    text-align center
+    text_rubik(20px, 25px, $primary_text_color)
+
+    @media screen and (max-width 575px)
+      text-align left
+      font-size 16px
+      line-height 20px
+
+  &__login
+    text-align center
+    text_rubik(16px, 20px, $placeholder_color)
+
+    @media screen and (max-width 575px)
+      text-align left
+      font-size 14px
+
+  &__likes
+    position absolute
+    top 10px
+    left 10px
+    padding 0 5px 0 0
+    display flex
+    align-items center
+    height 20px
+    border-radius 5px
+    background-color $primary_back_color
+    text_rubik(15px, 20px, $placeholder_color)
+
+    @media screen and (max-width 575px)
+      position static
+      margin 6px 0 0 0
+
+  &__points
+    position absolute
+    top 10px
+    right 10px
+    padding 0 5px 0 0
+    display flex
+    align-items center
+    height 20px
+    border-radius 5px
+    background-color $active_element_color
+    text_rubik(15px, 20px, white)
+
+    @media screen and (max-width 575px)
+      position static
+      margin 6px 5px 0 0
+
+  &__expand-trigger
+    display none
+
+    &-point
+      width 4px
+      height 4px
+      border-radius 50%
+      margin 0 1.5px
+      background-color $icon_color
+
+    @media screen and (max-width 575px)
+      position absolute
+      right 15px
+      bottom 15px
+      display flex
+      height 20px
+      width 32px
+      border 1px solid $line_color
+      align-items center
+      justify-content center
+      border-radius 5px
+
+      &--expand
+        background-color $active_element_color
+        border-color $active_element_color
+        &>.profile-info-head__expand-trigger-point
+          background-color white
+
+  &__subscribe-report-container
+    height 70px
+    padding 15px
+
+    @media screen and (max-width 575px)
+      border-top 1px solid $line_color
+
+  &__subscribe-btn
+    flex-basis 50%
+    flex-grow 1

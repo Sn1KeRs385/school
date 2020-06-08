@@ -1,0 +1,48 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.achievements-page-fame
+  position relative
+
+  &__empty
+    min-height 150px
+    display flex
+    align-items center
+    justify-content center
+    padding 15px
+    text-align center
+
+  &__search
+    border-bottom 1px solid $line_color
+
+  &__no-result, &__empty
+    font-size 14px
+    color $placeholder_color
+
+  &__footer
+    padding 29px 15px 40px 15px
+
+  &__arrow-load
+    margin 0 10px 0 0
+
+  &__search-result
+    padding 26px 15px 25px 15px
+    min-height 300px
+
+  &__elem
+    display flex
+    margin 0 0 10px 0
+
+    &:last-child
+      margin 0
+
+  &__loader
+    position absolute
+    display flex
+    justify-content center
+    padding 15px 0 0 0
+    top 50px
+    right 0
+    bottom 0
+    left 0
+    background-color alpha(white, 0.6)
+    z-index 10

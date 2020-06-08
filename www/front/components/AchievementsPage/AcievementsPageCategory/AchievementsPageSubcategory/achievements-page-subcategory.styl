@@ -1,0 +1,86 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.achievements-page-subcategory
+  position relative
+  border-bottom 1px solid $line_color
+
+  &:last-child
+    border-color transparent
+
+  &__header
+    height 50px
+    padding 15px 15px 14px 15px
+    display flex
+    align-items center
+    cursor pointer
+
+  &__name
+    color $primary_text_color
+
+  &__stats
+    &:before
+      content '\00a0'
+
+    color $placeholder_color
+
+  &__arrow
+    flex-shrink 0
+    color $placeholder_color
+    margin 0 0 0 auto
+    transition transform 0.2s
+
+    &--expanded
+      transform rotateZ(90deg)
+
+  &__body
+    max-height 0
+    overflow-y hidden
+    display flex
+    flex-direction column
+
+    &--expandable
+      transition max-height 0.2s
+      will-change max-height
+
+  &__expandable
+    padding 8px 15px 0 15px
+
+  &__elem
+    display flex
+    margin 0 0 10px 0
+
+    &:last-child
+      margin 0
+
+  &__footer
+    font-size 14px
+    padding 30px 0 23px 0
+    display flex
+    align-items flex-end
+
+  &__load-more
+    color $active_element_color
+    cursor pointer
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    margin 0 15px 0 0
+
+    &--loading
+      pointer-events none
+      opacity 0.5
+
+  &__loader
+    position relative
+    margin 0 15px 0 0
+    flex-shrink 0
+    display flex
+    align-items center
+    justify-content center
+    height 20px
+
+  &__counter
+    flex-shrink 0
+    color $placeholder_color
+    margin 0 0 0 auto
+    white-space nowrap

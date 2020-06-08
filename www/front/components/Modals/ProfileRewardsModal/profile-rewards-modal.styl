@@ -1,0 +1,134 @@
+@import "../../../assets/style/params/colors.styl"
+
+
+ql-aligns = {
+  'justify': justify,
+  'left': left,
+  'center': center,
+  'right': right,
+}
+
+ql-align-mixin($type)
+  .ql-align-{$type}
+    text-align $type
+
+.profile-rewards-modal
+  display flex
+  flex-direction column
+  align-items center
+  pointer-events none
+  &__content
+    pointer-events auto
+    position relative
+    width 100%
+    max-width 500px
+    background-color white
+    border-radius 10px
+    display flex
+    flex-direction column
+    padding 17px 15px 39px 15px
+    &__date
+      color $secondary_label_color
+      text-align right
+      font-size 14px
+      line-height 20px
+    &__reward-img
+      display flex
+      justify-content center
+      align-items center
+      margin-bottom 21px
+      &__icon, &__different-icon
+        width 90px
+        height 90px
+      &__different-icon
+        background-size cover
+        background-repeat no-repeat
+        background-position center
+
+
+    &__title
+      color $tool_background_active
+      font-size 20px
+      line-height 25px
+      text-align center
+      margin-bottom 9px
+
+    &__description
+      display flex
+      flex-direction column
+      color $secondary_text_color
+      font-size 16px
+      line-height 20px
+      text-align center
+      margin-bottom 45px
+      ol
+        width 100%
+        margin 0
+        padding 0 0 0 15px
+      li
+        counter-increment list-0
+        list-style-type none
+        width 100%
+        text-align left
+        &:before
+          content counter(list-0,decimal) ". "
+      for text-align in ql-aligns
+        ql-align-mixin(ql-aligns[text-align])
+    &__divider
+      position relative
+      left -15px
+      width calc(100% + 30px)
+      height 1px
+      border unset
+      background $line_color
+      margin 0 0 24px 0
+    &__achievements
+      &__title
+        color $primary_text_color
+        font-size 16px
+        line-height 20px
+        margin-bottom 15px
+    &__total-points
+      margin-top 24px
+      color $link_text_color
+      font-size 16px
+      line-height 20px
+    &__more-load
+      margin-top 30px
+
+      &__arrow-load
+        margin-right 10px
+    &__button
+      &-action
+        margin-top 40px
+        &__icon
+          margin-right 11px
+  &__close
+    display block
+    position fixed
+    width 60px
+    height 60px
+    z-index 1
+    color white
+    top 30px
+    right 30px
+    pointer-events auto
+    border-radius 50%
+    cursor pointer
+
+  @media screen and (max-width 767px)
+    position relative
+    top 80px
+    padding 0 15px
+    &__close
+      right 15px
+@media screen and (max-width: 767px) {
+  .profile-rewards-modal__container {
+    position fixed
+    z-index 1000
+    height unset
+    overflow unset
+    overflow-y auto
+    background-color $modal_rewards_background
+  }
+}

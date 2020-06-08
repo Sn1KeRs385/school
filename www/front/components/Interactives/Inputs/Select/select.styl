@@ -1,0 +1,120 @@
+@import "../../../../assets/style/params/colors.styl"
+@import "../../../../assets/style/mixins.styl"
+
+.select
+  height 50px
+  width 100%
+  position relative
+
+  &__content
+    display: block;
+    position absolute
+    border-radius 0 0 5px 5px
+    top 100%
+    left 0
+    right 0
+    z-index 10
+
+    &-padding
+      position relative
+
+    &--is-open
+      box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)
+
+  &__input-container
+    cursor pointer
+    z-index 2
+
+  &__value-container
+    width 100%
+    padding 0 34px 0 14px
+    display flex
+    align-items center
+    text_rubik()
+
+  &__placeholder
+    text_rubik(16px, 20px, $placeholder_color)
+    width 100%
+    padding 0 34px 0 14px
+
+  &__toggler
+    position absolute
+    width 20px
+    height 20px
+    border 5px solid transparent
+    right 10px
+    transform rotateZ(90deg)
+    cursor pointer
+    color $primary_text_color
+    transition transform 0.25s
+
+    &--is-open
+      transform rotateZ(270deg)
+
+
+    &>svg
+      pointer-events none
+      position absolute
+      width 100%
+      height 100%
+
+  &__input--focus
+    border-bottom-left-radius 0 !important
+    border-bottom-right-radius 0 !important
+    position relative
+    z-index 4
+    border-color $border_input_color !important
+
+    &:before
+      z-index: -1;
+      border-radius: inherit
+      content ''
+      position absolute
+      top -1px
+      right -1px
+      bottom 0px
+      left -1px
+      box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)
+
+  &__menu
+    max-height 151px
+    overflow-y auto
+    left 0
+    background-color white
+    right 0
+    border 1px solid $border_input_color
+    border-top none
+    border-radius 0 0 5px 5px
+    z-index 2
+    box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)
+
+    &-item
+      border-bottom 1px solid $border_input_color
+      height 50px
+      background-color white
+      display flex
+      align-items center
+      padding 0 34px 0 14px
+      cursor pointer
+      position relative
+      text_rubik()
+
+      &:hover
+        background-color $secondary_back_color
+
+      &--selected
+        color $active_element_color
+
+        &::after
+          content ''
+          position absolute
+          right 14px
+          width 9px
+          height 9px
+          background-image url('../../../../assets/image/check_aqua.svg')
+          background-repeat no-repeat
+          background-position center
+          background-size contain
+
+      &:last-child
+        border-bottom none

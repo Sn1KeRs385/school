@@ -1,0 +1,18 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.setting-tab-container
+  background-color white
+  border-radius 10px
+  min-height 350px
+
+  @media screen and (max-width 575px)
+    border-radius 0
+
+  &__header
+    border-bottom 1px solid $line_color
+    padding 20px 15px 24px 15px
+    text_rubik(20px, 25px)
+    min-height 70px
+
+

@@ -1,0 +1,139 @@
+<template lang="pug">
+  .container
+    b-button(
+      variant="success"
+      @click="openCreateModal"
+    ) {{ $t('CRUD_Button.create_button') }}
+    .main-content(
+      v-for="data in news.items"
+    )
+      .row.justify-content-end
+        b-button.delete-button(
+          variant="danger"
+          size="sm"
+          @click="deleteMethod(data.id)"
+        ) {{ $t('CRUD_Button.delete_button') }}
+      b-card.main-content__card(
+        v-bind:key="data.id"
+        bg-variant="light"
+        text-variant="black"
+      )
+        template(
+          v-slot:header
+        )
+          .main-content__header.text-center {{data.title}}
+        b-card-body
+          b-card-text(
+            v-html="data.text"
+          )
+        b-card-body
+          b-card-sub-title.mb-2 {{nameFormat(data.creator)}}
+          b-card-sub-title.mb-2 {{dateFormat(data.created_at)}}
+
+
+</template>
+
+<script>
+import PageLayout from '../components/General/PageLayout/PageLayout.vue'
+import CreateModal from '../components/Modals/News/CreateModal/CreateModal.vue'
+import { getNews, deleteNews } from '../plugins/api/news'
+export default {
+  inject: ['setModal'],
+  middleware: 'authenticated',
+  components: {
+    PageLayout,
+    CreateModal,
+  },
+  data(){
+    return {
+      createModal: {
+        component: CreateModal,
+        events: {
+          close: this.setModal,
+          reload: async () => {
+            await this.loadNews();
+          }
+        },
+      },
+    }
+  },
+  async asyncData() {
+    const [ news] = await Promise.all([
+      getNews({
+        page: 1,
+        records: 5
+      }),
+    ])
+    return {
+      news: news.data,
+    }
+  },
+  head() {
+    return {
+      title: 'Liga',
+      meta: [
+        { name: 'description', content: 'Liga life.' },
+        { name: 'image', content: '/favicon/favicon.ico' },
+        { itemprop: 'name', content: 'www.liga.life' },
+        { itemprop: 'description', content: 'Liga life.' },
+        { itemprop: 'image', content: '/favicon/favicon.ico' },
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'twitter:title', content: 'Liga.Life' },
+        { name: 'twitter:description', content: 'Liga life.' },
+        { name: 'twitter:image', content: '/favicon/oglogo.png' },
+        { name: 'og:title', content: 'Liga.Life' },
+        { name: 'og:description', content: 'Liga.Life' },
+        { name: 'og:image', content: '/favicon/oglogo.png' },
+        { name: 'og:url', content: 'www.liga.life' },
+        { name: 'og:site_name', content: 'www.liga.life' },
+        { name: 'og:locale', content: 'ru_RU' },
+        { name: 'og:type', content: 'website' },
+      ],
+    }
+  },
+  computed: {
+    text() {
+      return '<p>Добро пожаловать на сайт муниципального бюджетного учреждения дополнительного образования «Детская школа искусств №2» пгт. Высокий г. Мегиона<p>' +
+      '<br><p>35 лет ДШИ №2 является культурным центром посёлка Высокий, это настоящий храм искусства.</p>' +
+      '<br><p>«Творим Добро» - таков девиз нашей школы, потому как, педагогами движет Творчество и оно неразрывно связано Верой в то, что они делают важное и нужное дело, с Надеждой на поддержку со стороны родителей, общественности, администрации города, Ханты-Мансийского автономного округа и Любовью к искусству, а главное – к детям!</p>' +
+      '<br><p> — Директор ДШИ №2 Кузнецова Г.С.</p>';
+    },
+  },
+  methods: {
+    dateFormat(date) {
+      return (new Date(date)).toLocaleString()
+    },
+    nameFormat(creator) {
+      if(creator && creator.last_name){
+        return `${creator.last_name} `
+          + (creator.first_name ? `${creator.first_name.substr(0, 15)}. ` : '')
+          + (creator.first_name && creator.patronymic ? `${creator.patronymic.substr(0, 1)}.` : '');
+      } else {
+        return '';
+      }
+    },
+    openCreateModal() {
+      this.setModal(this.createModal)
+    },
+    async deleteMethod(id) {
+      await Promise.all([
+        deleteNews(id)
+      ]);
+      await this.loadNews();
+    },
+    async loadNews() {
+      const [news ] = await Promise.all([
+        getNews({
+          page: 1,
+          records: 5
+        }),
+      ]);
+      this.news = news.data;
+    }
+  }
+}
+</script>
+
+<style lang="stylus">
+  @import "index.styl"
+</style>

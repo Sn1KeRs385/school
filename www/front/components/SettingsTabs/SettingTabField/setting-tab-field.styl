@@ -1,0 +1,23 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.setting-tab__field
+  &-label-container
+    text-align right
+    margin 15px 0 0 0
+
+    @media screen and (max-width 1199px)
+      margin 0 0 5px 0
+      text-align left
+
+  &-label
+    text_rubik()
+    color $primary_label_color
+    margin 0 10px 0 0
+    cursor pointer
+
+  &-input
+    padding 0 20px 0 0
+
+    @media screen and (max-width 1199px)
+      padding 0

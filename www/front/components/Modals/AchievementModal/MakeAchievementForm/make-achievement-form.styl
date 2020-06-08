@@ -1,0 +1,44 @@
+@import '../../../../assets/style/params/colors.styl'
+
+subform_heading(class)
+  &__{class}-achievement
+    {block}
+    .{class}-achievement
+      &__container-heading
+        padding 0 10px
+      &__heading
+        font-size 20px
+        line-height 25px
+      &__subheading
+        color $link_text_color
+        line-height 25px
+        margin-bottom 14px
+
+
+.make-achievement
+  &-form
+     .achievement-modal-field
+        &__toggle-button
+          cursor pointer
+          border-bottom: 1px solid $link_text_color
+  &-subform
+    +subform_heading(info)
+      padding 21px 0 60px 0
+      background $primary_back_color
+    +subform_heading(commentary)
+      padding-top 30px
+      .commentary-achievement
+        &__heading
+          margin-bottom 35px
+  
+  &-form
+    padding 30px 15px 60px 15px
+
+    @media screen and (max-width 767px)
+      padding 30px 15px 40px 15px
+
+    &__text-area
+      min-height 120px
+
+    &__submit
+      margin 10px 0 0 0

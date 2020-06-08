@@ -1,0 +1,146 @@
+@import "../../../assets/style/params/colors.styl"
+
+.rating-list
+  background-color white
+  border-radius 10px
+  position relative
+  display flex
+  flex-direction column
+
+  &--no-result
+    min-height 100%
+
+  &__no-result
+    font-size 14px
+    color $placeholder_color
+    padding 15px
+    min-height 70px
+    display flex
+    align-items center
+    justify-content center
+
+  &__loader
+    max-height 230px
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+
+    &-container
+      position absolute
+      z-index 15
+      top 0
+      bottom 0
+      right 0
+      left 0
+      background-color alpha(white, 0.7)
+      border-radius 10px
+
+  &__header
+    display flex
+    align-items center
+    padding 0 15px
+    position sticky
+    top 70px
+    background-color white
+    border-radius 10px 10px 0 0
+    z-index 10
+    border-bottom 1px solid $line_color
+
+    @media screen and (max-width 991px)
+      top -70px
+      flex-wrap wrap
+      padding 0
+      border-bottom none
+
+    &-button-mode
+      position relative
+      margin 0 15px 0 0
+      max-width 400px
+      flex-grow 1
+      padding 15px 0
+
+      @media screen and (max-width 991px)
+        margin 0
+        width 100%
+        max-width none
+        padding 15px
+        position sticky
+        z-index 10
+        top 0
+        background-color white
+        border-bottom 1px solid $line_color
+
+        &--me
+          order 13
+          border-radius 0 0 10px 10px
+          border-top 1px solid $line_color
+          border-bottom none
+          bottom 0
+
+    &-params
+      position relative
+      flex-shrink 0
+      display flex
+      margin 0 0 0 auto
+      color $placeholder_color
+      font-size 14px
+
+      @media screen and (max-width 991px)
+        width 100%
+        padding 25px 15px 24px 15px
+        order -1
+        border-bottom 1px solid $line_color
+
+
+
+    &-sort-by, &-settings
+      position relative
+      flex-shrink 0
+      display flex
+      color $placeholder_color
+      font-size 14px
+      cursor pointer
+      height 20px
+
+    &-sort-by
+      margin 0 0 0 auto
+
+      &--checked
+        color $active_element_color
+
+      &-icon
+        margin 0 5px 0 0
+
+    &-settings
+      margin 0 auto 0 0
+      &.tool-active
+        color $active_element_color
+      &-icon
+        margin 0 10px 0 0
+
+
+  &__list
+
+    &-item
+      display block
+      border-top 1px solid $line_color
+
+      &:first-child
+        border-color transparent
+
+      &:last-child
+        border-radius 0 0 10px 10px
+
+      &--current
+        background-color #EEEEEE
+
+      &-number
+        align-self stretch
+        font-size 14px
+        color $placeholder_color
+        padding 15px 15px 0 0
+
+        &--current
+          color $primary_text_color
+

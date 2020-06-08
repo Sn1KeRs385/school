@@ -1,0 +1,24 @@
+.profile-wall-achievements
+  &-item
+    color $error_color
+    font-size 14px
+    width 100%
+    word-break break-word
+    margin-top 7px
+    will-change opacity, font-size, margin-top, line-height
+    overflow hidden
+
+  &-leave
+    font-size 14px
+    margin-top 7px
+    opacity 1
+    line-height 20px
+
+  &-leave-active
+    transition line-height .15s, font-size .15s, margin-top .15s
+
+  &-leave-to
+    margin-top 0
+    font-size 0
+    opacity 0
+    line-height 0px

@@ -1,0 +1,307 @@
+@import "../../../assets/style/params/colors.styl"
+
+modal-class(className, leftVal)
+  &-{className}
+    .tool-tip__mark-text
+      left leftVal
+
+.the-header
+  .tool-tip
+    &-container
+      &-header
+        .tool-tip__mark
+          &-text
+            box-shadow: 0 4px 10px $tool_tip_box;
+          &-triangle
+            bottom -15px
+            left 70px
+            border none !important
+          &-text, &-triangle
+            border none !important
+.tool-tip
+  &__mark
+    cursor pointer
+    &-handler
+      visibility hidden
+    &-container
+      display: flex;
+      position relative
+      &-header
+        position absolute
+        top 70px
+        &.tool-active
+          .tool-tip__mark-handler
+            visibility visible
+        .tool-tip__mark
+          display none !important
+          &-text
+            box-shadow: 0 4px 10px $tool_tip_box;
+          &-triangle
+            bottom -10px
+            left 70px
+      &-active, &.tool-toggle-button
+        .tool-tip__mark-handler
+          visibility visible
+      &-category
+        .tool-tip__mark-text
+          left -194px
+      &-plus-button
+        right 230px
+        .tool-tip__mark-triangle
+          left 185px
+      &-search
+        left 123px
+      &-profile
+        right 240px
+        .tool-tip__mark-triangle
+          left 80px
+      &-show-rating
+        left 26%
+        .tool-tip__mark-triangle
+          bottom -10px
+      &-header-settings
+        left 75px
+        top 50px
+      &-likes-rating
+        top 40px
+        .tool-tip__mark-triangle
+          left 40px
+      &-profile-wall
+        top 50px
+        left 80px
+        .tool-tip__mark-triangle
+          left 75px
+        @media screen and (max-width: 1199px) and (min-width: 992px)
+          left 55px
+          .tool-tip__mark-triangle
+            left 63px
+      &-profile
+        &-info
+          top 240px
+          left 72px
+        &-followers
+          top 512px
+          left 50px
+          .tool-tip__mark-triangle
+            left -4px
+            bottom -10px
+        &-subscribers
+          top 363px
+          left 50px
+          .tool-tip__mark-triangle
+            left -4px
+            bottom -10px
+        &-fake
+          left -89px
+          top 63px
+          position relative
+          .tool-tip__mark-triangle
+            left 80px
+            bottom -10px
+        &-like
+          position relative
+          left -80px
+          top 63px
+      &-achievement-tab
+        top 49px !important
+        left 69px
+        .tool-tip__mark-triangle
+          left 75px
+          bottom -10px
+      &-goal-tab
+        top 49px !important
+        left 70px
+        .tool-tip__mark-triangle
+          left 75px
+          bottom -10px
+      &-achievement
+        &-hall
+          left 80px
+          top 50px
+          .tool-tip__mark-triangle
+            left 83px
+            bottom -10px
+        &-category
+          left 60px
+          top 117px
+          .tool-tip__mark-triangle
+            display: none;
+    &-triangle
+      width 20px
+      height 20px
+      content ""
+      display block
+      position absolute
+      transform rotate(45deg)
+      background white
+      border 2px solid
+      z-index 5
+      border-color $tool_tip_box transparent transparent $tool_tip_box
+      bottom -120%
+      left 0
+    &-text
+      width 280px
+      background-color white
+      border: 2px solid $tool_tip_box
+      border-radius 5px
+      padding 20px 20px 15px 20px
+      position: absolute
+      z-index 2
+      top 159%
+      left 50%
+      margin-left -50px
+
+    &-controls
+      display flex
+      justify-content space-between
+      margin-top 25px
+    &-info, &-accept, &-refuse
+      color $header_back_color
+      font-weight normal
+      font-size 14px
+      line-height 1.4
+    &-refuse
+      cursor pointer
+      color $secondary_label_color
+    &-accept
+      cursor pointer
+      color $primary_button_back_color
+  &__gray-icon
+    svg path
+      fill $tool_tip_gray
+
+  @media screen and (max-width: 1199px) and (min-width: 992px)
+    &__mark
+      &-container
+        &-profile-wall
+          left 55px
+          .tool-tip__mark-triangle
+            left 63px
+        &-achievement
+          &-hall
+            left 20px
+            .tool-tip__mark-triangle
+              left 95px
+  @media screen and (max-width: 991px)
+    &__mark
+      &-container
+        &-header
+          top 67px
+          .tool-tip__mark-triangle
+            bottom -10px
+        &-rating
+          left -163px
+          .tool-tip__mark-triangle
+            left 181px
+        &-mark-rating
+           .tool-tip__mark-text
+              left -22px
+        &-search
+          left -90px
+          .tool-tip__mark-triangle
+            left 100px
+        &-profile
+          left 60px
+          top 60px
+          .tool-tip__mark-handler
+            position relative
+          .tool-tip__mark-triangle
+            bottom -15px
+            left 15px
+        &-profile-nav
+          left -30px
+          .tool-tip__mark-triangle
+            left 50px
+        &-plus-button
+          top 60px
+          .tool-tip__mark-triangle
+            bottom -15px
+            left 190px
+        &-show-rating
+          left 70px
+          .tool-tip__mark-triangle
+            left 75px
+        &-settings-rating
+          left 50px
+          top 67px
+        &-likes-rating
+          right 230px
+          top 67px
+        &-profile
+          &-wall
+            top 50px
+            left 20%
+            .tool-tip__mark-triangle
+              left 20px
+          &-info
+            top 240px
+            left 270px
+          &-followers
+            top 512px
+          &-subscribers
+            top 363px
+          &-fake
+            position relative
+            left -112px
+            top 63px
+            .tool-tip__mark-triangle
+              left 103px
+              bottom -10px
+          &-like
+            position relative
+            left -192px
+            top 63px
+            .tool-tip__mark-triangle
+              left 182.5px
+        &-achievement
+          &-hall
+            top: 50px;
+            .tool-tip__mark-triangle
+              left 86px
+          &-category
+            top 117px
+  @media screen and (max-width: 767px)
+    &__mark
+      &-container
+        &-profile-info
+          left 165px
+        &-achievement-tab
+          top 49px !important
+          left 49px
+          .tool-tip__mark-triangle
+            left 10px
+        &-goal-tab
+          left unset
+          right 228px
+          .tool-tip__mark-triangle
+            left 135px
+        &-achievement
+          &-hall
+            left: -5px;
+            top: 50px;
+            .tool-tip__mark-triangle
+              left 122px
+  @media screen and (max-width: 575px)
+    &__mark
+      &-container
+        &-profile-info
+          top 100px
+          left 62px
+        &-achievement
+          &-hall
+            left -2px
+            .tool-tip__mark-triangle
+              left 73px
+        modal-class(modal-name, -32px)
+        modal-class(modal-category, -41px)
+        modal-class(modal-description, -170px)
+        modal-class(modal-condition, -122px)
+        modal-class(modal-placement, -96px)
+        modal-class(modal-difficult, -146px)
+        modal-class(modal-difficult-goal, -88px)
+        modal-class(modal-subcategories, -70px)
+        modal-class(modal-dateProgress, -96px)
+        modal-class(modal-placement-myself, -96px)
+        modal-class(modal-comment, -96px)
+        modal-class(modal-files, 40px)
+        modal-class(achievement-hall, -70px)

@@ -1,0 +1,35 @@
+@import "../../assets/style/params/colors.styl"
+
+.progress-remove-question
+  position relative
+  background white
+  border-radius 10px
+  box-shadow 0 0 10px -2px alpha(black, 0.2)
+  padding 15px
+  font-size 14px
+  flex-grow 1
+
+  &__inner
+    position relative
+
+  &__title
+    margin 0 0 10px 0
+    text-align center
+
+  &__body
+    display flex
+    justify-content center
+
+  &__yes, &__no
+    cursor pointer
+
+    &:hover
+      text-decoration underline
+      color $active_element_color
+
+  &__yes
+    color $placeholder_color
+    margin 0 15px 0 0
+
+  &__no
+    color $secondary_text_color

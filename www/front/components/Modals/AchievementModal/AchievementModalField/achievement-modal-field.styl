@@ -1,0 +1,41 @@
+.achievement-modal-field
+  margin 0 0 20px 0
+  padding 0 70px 0 0
+  display flex
+  align-items flex-start
+  &:last-child
+    margin 0
+
+  &__label
+    display inline-block
+    margin 14px 10px 0 auto
+    text-align right
+
+    &-container
+      display flex
+      align-items flex-end
+      flex-basis 230px
+      margin 0 20px 0 0
+      flex-shrink 0
+
+  &__input
+    &-container
+      flex-grow 1
+      max-width 100%
+      min-width 0.1px
+
+  @media screen and (max-width 767px)
+    display block
+    padding 0 10px
+    &__label
+      margin 0 0 5px 0
+      &-container
+        align-items center
+        .tool-tip__mark-container
+          margin 0 0 5px 6px
+    &-files
+      display flex
+      .achievement-modal-field__label-container
+        &:first-child
+          flex-basis unset
+

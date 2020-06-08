@@ -1,0 +1,149 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.menu-control
+  position relative
+  width 300px
+  height 100%
+  border-right 1px solid alpha(white, 0.1)
+
+  &:hover, &.tool-active
+    border-color #333333
+    background-color #333333
+
+  @media screen and (max-width 991px)
+    position static
+    width 100%
+
+    &:hover
+      background-color transparent
+      border-right 1px solid alpha(white, 0.1)
+
+  &__photo
+    width 44px
+    height 44px
+    margin 0 10px 0 0
+    flex-shrink 0
+    border-radius 50%
+    display block
+    object-position center
+
+    @media screen and (max-width 991px)
+      margin-left 0
+      width 40px
+      height 40px
+
+  &__name
+    flex-grow 1
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+
+
+
+  &__menu
+    position absolute
+    top 100%
+    background-color #333333
+    left -1px
+    right -1px
+    z-index 1
+
+    @media screen and (max-width 991px)
+      left 0
+      right 0
+
+    &-item
+      display block
+      border-top 1px solid alpha(white, 0.1)
+      padding 15px
+      min-height 50px
+      color white
+      cursor pointer
+      white-space nowrap
+      text-overflow ellipsis
+
+      &:hover
+        border-top-color #474747
+        background-color #474747
+
+
+
+    &-notifications
+      padding-right 0
+      position relative
+      display flex
+      align-items center
+
+      &-text
+        flex-grow 1
+
+      &-counter
+        margin 0 15px
+        padding 0 5px
+        height 20px
+        display flex
+        align-items center
+        font-size: 14px;
+        line-height: 1px;
+        color white
+        background-color $active_element_color
+        border-radius 5px
+
+    &-exit
+      padding-left 0
+      position relative
+      display flex
+      align-items center
+
+      &-text
+        flex-grow 1
+
+      &-icon
+        margin 0 15px
+        width 19px
+        height 19px
+        background-image url('../../../assets/image/exit.svg')
+        background-repeat no-repeat
+        background-size contain
+        background-position center
+
+    &-my-menu
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color $primary_label_color
+
+  .tool-tip__mark-info
+    white-space normal
+  &__tool
+    display flex
+    align-items center
+    justify-content space-between
+    &-tip
+      width 100%
+      color white
+  &__header
+    position relative
+    padding 0 14px 0 14px
+    display flex
+    align-items center
+    width 100%
+    height 100%
+    cursor pointer
+    color $secondary_label_color
+
+    &-arrow
+      transition transform 0.15s
+      margin 0 0 0 10px
+
+      &--is-open
+        transform rotateZ(90deg)
+
+    &--is-open
+      background-color #333333
+      color white
+
+      @media screen and (max-width 991px)
+        background-color transparent

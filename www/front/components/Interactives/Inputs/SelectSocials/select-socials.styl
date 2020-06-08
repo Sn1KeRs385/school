@@ -1,0 +1,53 @@
+.social-input
+  display flex
+  align-items center
+  margin 0 0 10px 0
+
+  &-add
+    display inline-flex
+    height 40px
+
+  &-img
+    flex-basis 72px
+    flex-shrink 0
+
+    & .input-container
+      border-top-right-radius 0
+      border-bottom-right-radius 0
+
+  &-id
+    flex-grow 1
+    margin 0 0 0 -1px
+
+    & .input-container
+      border-top-left-radius 0
+      border-bottom-left-radius 0
+
+  &-remove
+    cursor pointer
+    width 28px
+    height 30px
+    margin 0 0 0 10px
+    border-radius 50%
+    border 1px solid $border_input_color
+    display flex
+    align-items center
+    justify-content center
+    position relative
+    padding 0
+
+    &:before
+      position absolute
+      content ''
+      margin-top 0.5px
+      height 2px
+      width 11px
+      border-radius 1px
+      background-color $primary_label_color
+
+    &:hover
+      border-color $border_input_color_focus
+
+    &:focus
+      border-color $border_input_color_focus
+      box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)

@@ -1,0 +1,147 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.personal-tab
+  padding 0 65px 60px 0
+
+  @media screen and (max-width 1199px)
+    padding 0 15px 15px 15px
+
+  &__avatar-container
+    margin 30px 0
+    position relative
+    width 140px
+    height 140px
+
+    @media screen and (max-width 575px)
+      margin 30px 0 25px 0
+
+  &__avatar-input-label
+    display block
+    border-radius 50%
+    width 140px
+    height 140px
+    cursor pointer
+    background-repeat no-repeat
+    background-size cover
+    background-position center
+
+    &>input
+      display none
+
+  &__avatar-remove
+    position absolute
+    top -10px
+    right -10px
+    width 25px
+    height 25px
+    display flex
+    align-items center
+    justify-content center
+    border 1px solid $line_color
+    border-radius 50%
+    color $line_color
+    cursor pointer
+
+    &:hover
+      color $active_element_color
+      border-color $border_input_color_focus
+
+    &>svg
+      position absolute
+      width 11px
+      height 11px
+
+
+  &__field
+    margin 0 0 20px 0
+
+    @media screen and (max-width 1199px)
+      margin 0 0 15px 0
+
+    &-about-self
+      height 120px
+
+    &-socials
+      margin 0 0 30px
+
+      @media screen and (max-width 1199px)
+        margin 0 0 15px 0
+
+  &__socials
+    display flex
+    align-items center
+    margin 10px 0 0 0
+
+    &:first-child
+      margin-top 0
+
+    &-add
+      display inline-flex
+      height 40px
+      margin 10px 0 0 0
+
+      &:first-child
+        margin-top 3px
+
+    &-logo
+      flex-basis 85px
+      flex-shrink 0
+
+      &-img
+        position relative
+        width 30px
+        height 30px
+        display flex
+        align-items center
+
+        & svg
+          position absolute
+          width 100%
+          header 100%
+
+      & .multiselector__value-container
+        border-top-right-radius 0
+        border-bottom-right-radius 0
+
+      & .multiselector__body
+        border-top-right-radius 0
+
+    &-login
+      flex-grow 1
+      margin 0 0 0 -1px
+
+      & .input-container
+        border-top-left-radius 0
+        border-bottom-left-radius 0
+
+    &-remove
+      cursor pointer
+      width 28px
+      height 30px
+      margin 0 0 0 10px
+      border-radius 50%
+      border 1px solid $border_input_color
+      display flex
+      align-items center
+      justify-content center
+      position relative
+      padding 0
+      flex-shrink 0
+      background-color transparent
+
+      &:before
+        position absolute
+        content ''
+        margin-top 0.5px
+        height 2px
+        width 11px
+        border-radius 1px
+        background-color $primary_label_color
+
+      &:hover
+        border-color $border_input_color_focus
+
+      &:focus
+        border-color $border_input_color_focus
+        box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)

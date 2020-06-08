@@ -1,0 +1,103 @@
+@import "../../../assets/style/params/colors.styl"
+
+.share-modal
+  pointer-events auto
+  width 100%
+  background-color #fff
+  border-radius 10px
+  display flex
+  flex-direction column
+  padding 21px 15px 40px 15px
+
+  &__container
+    display flex
+    flex-direction column
+    align-items center
+    pointer-events none
+    margin 0 auto
+    max-width 345px
+    width 100%
+    padding 0 15px
+    position relative
+
+  &__close
+    pointer-events auto
+    border-radius 50%
+    cursor pointer
+    display block
+    z-index 1
+    color #fff
+    width 60px
+    height 60px
+
+    @media screen and (min-width 768px)
+      position fixed
+      top 30px
+      right 30px
+
+    @media screen and (max-width 767px)
+      position absolute
+      top -80px
+      left 50%
+      margin-left -30px
+
+  &__title
+    font-size 20px
+    line-height 25px
+    colro $primary_text_color
+    margin 0 0 9px 0
+
+  &__description
+    color $placeholder_color
+    margin 0 0 15px 0
+
+  &__services
+    margin 0 0 15px 0
+
+    & .ya-share2__list
+      list-style none
+      margin 0
+      padding 0
+      display grid
+      grid-template-columns 1fr 1fr
+      grid-gap 10px
+
+    & .ya-share2__item a
+      display flex
+      height 50px
+      padding 0 15px 0 5px
+      border 1px solid $line_color
+      border-radius 5px
+      align-items center
+      font-size 14px
+
+      &::before
+        content ' '
+        display block
+        margin 0 5px 0 0
+        width 30px
+        height 30px
+        border-radius 50%
+        background-repeat no-repeat
+        background-position center
+
+    & .ya-share2__item_service_vkontakte
+      & > a
+        &::before
+          background-image url('../../../assets/image/vk.svg')
+
+        color #4D7198
+
+    & .ya-share2__item_service_facebook
+      & > a
+        &::before
+          background-image url('../../../assets/image/fb.svg')
+
+        color #3B5998
+
+  &__copy-link
+    &-label
+      display inline-block
+      margin 0 0 5px 0
+      color $placeholder_color
+      cursor pointer

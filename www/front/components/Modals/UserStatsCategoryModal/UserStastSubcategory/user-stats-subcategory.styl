@@ -1,0 +1,93 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.user-stats-subcategory
+  border-bottom 1px solid $line_color
+
+  &__header
+    padding 14px 15px 14px 15px
+    display flex
+    align-items center
+    cursor pointer
+
+  &__subcategory
+    &-name
+      margin 0 5px 0 0
+      min-width 0
+      word-break break-word
+
+    &-points
+      flex-shrink 0
+      border 1px solid $line_color
+      color $placeholder_color
+      padding 0 3px
+      border-radius 5px
+      margin 0 10px 0 0
+
+    &-arrow
+      color $placeholder_color
+      transition transform 0.15s
+      margin 0 0 0 auto
+
+      &--open
+        transform rotateZ(90deg)
+
+  &__achievement
+    display flex
+    padding 10px 15px 0 15px
+    font-size 14px
+
+    &:first-child
+      padding 0 15px
+
+    &-name
+      color $active_element_color
+      margin 0 5px 0 0
+      min-width 0
+      word-break break-word
+
+    &-points
+      color $placeholder_color
+      flex-shrink 0
+      &:before
+        content '+'
+
+  &__expandable
+    padding 8px 0 10px 0
+
+    &-footer
+      padding 20px 15px 0 15px
+      display flex
+
+      &-load-more
+        font-size 14px
+        color $active_element_color
+        margin 0 10px 0 0
+        flex-shrink 1
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        cursor pointer
+
+        &--disabled
+          opacity 0.5
+          pointer-events none
+
+      &-loader
+        flex-shrink 0
+        margin 0 10px 0 0
+        height 20px
+        width 20px
+        display flex
+        align-items center
+
+      &-count
+        color $placeholder_color
+        font-size 14px
+        flex-shrink 0
+        margin 0 0 0 auto
+
+    &-container
+      height 0
+      transition height 0.15s
+      overflow hidden
+      width 100%

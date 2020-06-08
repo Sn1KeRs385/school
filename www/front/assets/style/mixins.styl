@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap&subset=cyrillic');
+@import "params/colors.styl"
+
+text_rubik($font_size = 16px, $line_height = 20px, $color = $primary_text_color)
+  font-family 'Rubik'
+  font-weight normal
+  font-style normal
+  font-size $font_size
+  line-height $line_height
+  color $color
+
+rubik-regular()
+  font-family 'Rubik'
+  font-weight normal
+  font-style normal
+
+placeholder($color)
+
+  &::-webkit-input-placeholder
+    color $color
+
+  &::-moz-placeholder
+    color $color
+
+  &:-ms-input-placeholder
+    color $color
+
+  &:-moz-placeholder
+    color $color
+
+  &::placeholder
+    color $color
+
+word-wrap-break()
+  white-space pre-wrap
+  white-space -moz-pre-wrap
+  white-space -pre-wrap
+  white-space -o-pre-wrap
+  word-wrap break-word
+  word-break break-word

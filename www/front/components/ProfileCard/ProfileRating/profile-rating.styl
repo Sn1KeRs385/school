@@ -1,0 +1,50 @@
+@import "../../../assets/style/params/colors.styl"
+
+.profile-rating
+  background-color white
+  border-radius 10px
+  grid-column-start 5
+  grid-column-end 3
+  grid-row-start 3
+  grid-row-end 1
+
+  @media screen and (max-width 1199px)
+    grid-column-end 3
+    grid-column-start 1
+    grid-row-start auto
+    grid-row-end auto
+
+  &__header
+    border-top 1px solid transparent
+    border-bottom 1px solid $line_color
+    display flex
+    align-items center
+    min-height 50px
+    color $active_element_color
+    padding 13px 14px
+
+  &__rating-link
+    color inherit
+    display block
+    margin 0 6px 0 0
+
+  &__settings
+    margin 0 0 0 auto
+    & > svg
+      color inherit
+      display block
+
+  &__user
+    display block
+    border-bottom 1px solid $line_color
+
+    &:last-child
+      border-bottom-color transparent
+
+  &__rating-count
+    align-self stretch
+    color $primary_label_color
+    margin 15px 15px 15px 15px
+
+    &--me
+      color $active_element_color

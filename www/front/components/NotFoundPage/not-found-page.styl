@@ -1,0 +1,36 @@
+@import "../../assets/style/params/colors.styl"
+
+.not-found-page
+  padding 60px 10px 70px 10px
+  background-color white
+  max-width 670px
+  border-radius 10px
+  margin 0 auto
+  display flex
+  flex-direction column
+  align-items center
+  text-align center
+
+  @media screen and (max-width 575px)
+    padding 40px 10px 40px 10px
+
+  &__404
+    margin 0 0 26px
+    max-width 320px
+
+  &__title
+    font-size 20px
+    line-height 25px
+    margin 0 0 19px 0
+    max-width 320px
+
+  &__text
+    color $placeholder_color
+    margin 0 0 25px 0
+    max-width 320px
+
+  &__go-to-main
+    min-width 188px
+
+    & .button__text
+      text-align center
