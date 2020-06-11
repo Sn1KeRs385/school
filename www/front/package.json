@@ -1,8 +1,8 @@
 {
-  "name": "Liga",
+  "name": "dshi2-Megion",
   "version": "1.0.0",
-  "description": "www.liga.life",
-  "author": "artyomLeoznov",
+  "description": "www.dshi2megion.ru",
+  "author": "AngelinaKuznetsova",
   "private": true,
   "scripts": {
     "dev": "npm install && nuxt",
