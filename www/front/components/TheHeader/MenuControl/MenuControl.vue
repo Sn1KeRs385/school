@@ -55,6 +55,8 @@ export default {
     mainMenu() {
       return [
         {name:"Объявления", link:'/'},
+        {name:"Пользователи", link:'/users'},
+        {name:"Направления подготовки", link:'/specializations'},
       ];
     }
   },

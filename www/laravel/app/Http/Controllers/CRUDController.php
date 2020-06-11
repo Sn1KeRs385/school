@@ -102,7 +102,7 @@ class CRUDController extends Controller implements iCRUDController
     {
         $this->hook_validate_show($request);
 
-        $this->authorize('view', $this->modelClass::find($id));
+        //$this->authorize('view', $this->modelClass::find($id));
 
         $query = $this->modelClass::whereId($id);
 
@@ -134,7 +134,7 @@ class CRUDController extends Controller implements iCRUDController
     {
         $this->hook_validate_store($request);
 
-        $this->authorize('create', $this->modelClass);
+        //$this->authorize('create', $this->modelClass);
 
         $this->hook_before_store($request);
 
@@ -164,7 +164,7 @@ class CRUDController extends Controller implements iCRUDController
     {
         $this->hook_validate_update($request, $id);
 
-        $this->authorize('update', $this->modelClass::find($id));
+        //$this->authorize('update', $this->modelClass::find($id));
 
         $this->hook_before_update($request, $id);
 
@@ -200,7 +200,7 @@ class CRUDController extends Controller implements iCRUDController
 
         $object = $this->modelClass::find($id);
 
-        $this->authorize('delete', $object);
+        //$this->authorize('delete', $object);
 
         $this->hook_before_destroy($request, $object);
 

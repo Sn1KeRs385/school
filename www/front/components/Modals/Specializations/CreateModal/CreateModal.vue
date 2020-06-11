@@ -11,24 +11,12 @@
           template(
             v-slot:header
           )
-            .main-content__header.text-center {{'Заголовок'}}
+            .main-content__header.text-center {{'Название'}}
           b-card-body
             b-form-input(
-              v-model="title"
+              v-model="data.name"
             )
 
-        b-card.margin-top.editor__card(
-          bg-variant="light"
-          text-variant="black"
-        )
-          template(
-            v-slot:header
-          )
-            .main-content__header.text-center {{'Текст объявления'}}
-          b-card-body
-            quill-editor.editor(
-              v-model="text"
-            )
         .row.margin-top
           b-button.col(
             variant="warning"
@@ -38,9 +26,6 @@
             variant="success"
             @click="save"
           ) {{ $t('CRUD_Button.save_button') }}
-        //Button(
-          @click.native="close"
-        //) {{ $t('CRUD_Button.close_form') }}
 
 </template>
 
@@ -48,7 +33,8 @@
 import AdjacentModalContainer from '../../AdjacentModalContainer/AdjacentModalContainer.vue'
 import ModalCloseSVG from '../../../SVG/ModalCloseSVG.vue'
 import Button from '../../../Interactives/Controls/Button/Button.vue'
-import { saveNews } from '../../../../plugins/api/news'
+import { save } from '../../../../plugins/api/api'
+const url = "specializations"
 
 export default {
   components: {
@@ -56,12 +42,14 @@ export default {
     ModalCloseSVG,
     Button
   },
-  props: {},
+  props: {
+  },
   data() {
     this.$t.bind(this)
     return {
-      title: null,
-      text: null,
+      data: {
+        name: null,
+      },
     }
   },
   methods: {
@@ -69,11 +57,8 @@ export default {
       this.$emit('close')
     },
     async save() {
-      const [news] = await Promise.all([
-        saveNews({
-          title: this.title,
-          text: this.text
-        }),
+      const [item] = await Promise.all([
+        save(this.data, url),
       ]);
       this.$emit('reload')
       this.$emit('close')

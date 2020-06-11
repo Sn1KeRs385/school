@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Models\Relation;
+use App\Models\Role;
+use App\Models\Specialization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +69,24 @@ class User extends Authenticatable
         $response = app()->handle($request)->getContent();
 
         return json_decode($response);
+    }
+
+    function roles(){
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    function specializations(){
+        return $this->belongsToMany(Specialization::class, 'teacher_specializations');
+    }
+
+    function relationStudents(){
+        return $this->belongsToMany(User::class, 'user_relations', 'parent_id', 'student_id')
+            ->withPivot('relation_id');
+    }
+
+    function relationParents(){
+        return $this->belongsToMany(User::class, 'user_relations', 'student_id', 'parent_id')
+            ->withPivot('relation_id');
     }
 
     public $fillable = [

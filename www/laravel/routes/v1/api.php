@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 $apiResources = [
     'users' => 'UserController',
     'news' => 'NewsController',
+    'roles' => 'RoleController',
+    'specializations' => 'SpecializationController',
+    'relations' => 'RelationController',
 ];
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiResources) {

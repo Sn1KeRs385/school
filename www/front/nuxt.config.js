@@ -122,6 +122,9 @@ export default {
       },
     ],
   ],
+  bootstrapVue: {
+    icons: true
+  },
   toast: {
     register: [
       {
