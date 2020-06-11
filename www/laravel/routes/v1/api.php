@@ -18,6 +18,7 @@ $apiResources = [
     'roles' => 'RoleController',
     'specializations' => 'SpecializationController',
     'relations' => 'RelationController',
+    'classes' => 'ClassController',
 ];
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiResources) {

@@ -56,6 +56,7 @@ export default {
       return [
         {name:"Объявления", link:'/'},
         {name:"Пользователи", link:'/users'},
+        {name:"Классы", link:'/classes'},
         {name:"Направления подготовки", link:'/specializations'},
       ];
     }
