@@ -3,6 +3,7 @@
     .the-header__content
       MenuControl
       .the-header__content__space
+      NotificationControl
       ProfileControl
 </template>
 
@@ -10,10 +11,12 @@
 
 import ProfileControl from './ProfileControl/ProfileControl.vue'
 import MenuControl from './MenuControl/MenuControl.vue'
+import NotificationControl from './NotificationControl/NotificationControl.vue'
 export default {
   components:{
     ProfileControl,
     MenuControl,
+    NotificationControl
   },
   computed:{
     isAuthorized() {

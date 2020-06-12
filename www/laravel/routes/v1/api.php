@@ -19,6 +19,7 @@ $apiResources = [
     'specializations' => 'SpecializationController',
     'relations' => 'RelationController',
     'classes' => 'ClassController',
+    'notifications' => 'NotificationController',
 ];
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiResources) {
@@ -28,6 +29,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
 
     Route::middleware(['auth:api'])->group(function() use($apiResources){
         Route::apiResources($apiResources);
+
+        Route::post( '/notifications/readAll', 'NotificationController@readAll');
 
         Route::match(['GET', 'POST'], '/signout', 'SignController@signout');
 
