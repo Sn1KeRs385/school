@@ -20,6 +20,7 @@ $apiResources = [
     'relations' => 'RelationController',
     'classes' => 'ClassController',
     'notifications' => 'NotificationController',
+    'messages' => 'MessageController',
 ];
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiResources) {
@@ -28,14 +29,16 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
     });
 
     Route::middleware(['auth:api'])->group(function() use($apiResources){
-        Route::apiResources($apiResources);
 
         Route::post( '/notifications/readAll', 'NotificationController@readAll');
 
         Route::match(['GET', 'POST'], '/signout', 'SignController@signout');
 
-        Route::group(['prefix' => 'media'], function () {
-            Route::delete('delete/{id}', 'MediaController@delete');
+        Route::group(['prefix' => 'messages'], function () {
+            Route::get('/unreadCounter', 'MessageController@unreadCounter');
+            Route::get('/getChats', 'MessageController@getChats');
+            Route::get('/getMessages', 'MessageController@getMessages');
+            Route::get('/sendMessage', 'MessageController@sendMessage');
         });
 
         Route::prefix('user')->group(function () {
@@ -46,5 +49,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
                 Route::match(['GET', 'POST'], '/', 'UserProfileController@show');
             });
         });
+
+        Route::apiResources($apiResources);
     });
 });

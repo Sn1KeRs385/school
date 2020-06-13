@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Message;
 use App\Models\Relation;
 use App\Models\Role;
 use App\Models\Specialization;
@@ -87,6 +88,14 @@ class User extends Authenticatable
     function relationParents(){
         return $this->belongsToMany(User::class, 'user_relations', 'student_id', 'parent_id')
             ->withPivot('relation_id');
+    }
+
+    function myMessages(){
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    function forMeMessages(){
+        return $this->hasMany(Message::class, 'recipient_id');
     }
 
     public $fillable = [

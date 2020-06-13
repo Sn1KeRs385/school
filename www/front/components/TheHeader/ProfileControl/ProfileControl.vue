@@ -9,6 +9,7 @@
       @mousedown.prevent
     )
       .profile-control__name {{ getFullName }}
+        span.profile-control__have-unread-messages {{ messagesUnread > 0 ? ` (${messagesUnread})` : '' }}
       .profile-control__header-arrow(
         :class="{'profile-control__header-arrow--is-open': isOpen}"
       )
@@ -18,7 +19,14 @@
         class="profile-control__menu-item"
         :to="localePath({ name: 'id-index-achievements', params: { id: getUser.id } })"
       ) {{ getFullName }}
-        .profile-control__menu-my-profile {{ $t('header.profile.my-profile') }}
+        .profile-control__menu-my-profile {{ $t('header.profile.my-profile')}}
+      NuxtLink(
+        class="profile-control__menu-item"
+        :to="localePath({ name: 'messages'})"
+      ) {{ 'Сообщение' }}
+        .profile-control__menu-my-profile(
+          v-if="messagesUnread > 0"
+        ) {{ `Непрочитанные сообщения: ${messagesUnread}` }}
       .profile-control__menu-item.profile-control__menu-exit(@click="logout")
         .profile-control__menu-exit-icon
         .profile-control__menu-exit-text {{ $t('header.profile.exit') }}
@@ -31,6 +39,7 @@
 import ClosableByClickMixin from '../../../assets/js/vue-mixins/closable-by-click'
 import ArrowSVG from '../../SVG/ArrowSVG.vue'
 import ToolTip from '../../General/ToolTip/ToolTip.vue'
+import { unreadCounter } from '../../../plugins/api/message'
 
 export default {
   components: {
@@ -41,7 +50,15 @@ export default {
   data() {
     return {
       isOpen: false,
+      messagesUnread: 0,
+      timer: null,
     }
+  },
+  mounted() {
+    this.timer = setInterval(this.loadUnreadMessages, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
   computed: {
     getControl() {
@@ -70,6 +87,16 @@ export default {
       this.$store.dispatch('auth/signOut').then(() => {
         this.$router.push(signinPage)
       })
+    },
+    async loadUnreadMessages() {
+      if(!this.$store.getters['auth/authorized']){
+        return;
+      }
+      const [ data ] = await Promise.all([
+        unreadCounter(),
+      ])
+
+      this.messagesUnread = data.data;
     },
   },
 }
