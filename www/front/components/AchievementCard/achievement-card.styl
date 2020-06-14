@@ -1,0 +1,293 @@
+@import "../../assets/style/params/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.achievement-card
+  border-radius 10px
+  background-color white
+
+  @media screen and (max-width 575px)
+    border-radius 0
+
+  &__header
+    height 70px
+    border-bottom 1px solid $line_color
+    display flex
+    align-items center
+    width 100%
+
+    &-user-card
+      display block
+      width 100%
+
+  &__body
+    padding 15px 0 0 0
+
+  &__title
+    font-size 20px
+    line-height 25px
+    margin 0 0 5px 0
+    padding 0 15px
+    display block
+    color $primary_text_color
+
+    &-section
+      color $placeholder_color
+      display flex
+      align-items center
+      font-size 14px
+      margin 0 0 14px 0
+      padding 0 15px
+
+      &-geo
+        margin 0 11px 0 0
+
+    &-settings
+      display inline-flex
+      align-items center
+      justify-content center
+      width 18px
+      height 16px
+      margin 0 4px 2px 0
+
+      & img
+        display block
+        width 20px
+        height 20px
+        opacity 0.3
+  &__media
+    &-info
+      background $media-files-background
+      color $primary_text_color
+      display flex
+      justify-content center
+      align-items center
+      font-size 14px
+      margin 0 0 14px 0
+      padding 10px 15px
+  .VueCarousel-slide
+    display flex
+    justify-content center
+  &__media
+    max-width 100%
+    margin 0 0 21px 0
+    position relative
+    &-container
+      display flex
+      justify-content center
+    &-mask
+      height 100%
+      width 100%
+      position absolute
+      z-index 1
+      pointer-events none
+      background $slider_img_background
+    .VueCarousel-navigation
+      &-prev
+        left 60px
+      &-next
+        right 60px
+      &-button
+        z-index: 2;
+        padding 0 !important
+        margin 0 !important
+        //color transparent
+        outline none !important
+        //font-size 0 !important
+        svg
+          width 45px
+          fill transparent
+          transition fill 0.25s
+          path
+            fill transparent
+            transition fill, stroke 0.15s
+        &:hover
+          svg
+            fill $active_element_color
+            path
+              stroke white
+        //&:before
+        //  content ""
+        //  background-size contain !important
+        //  position absolute
+        //  width 50px
+        //  height 40px
+
+    &-pagination
+      position absolute
+      display flex
+      justify-content center
+      z-index 100
+      bottom -15px
+      left 0
+      right 0
+
+      &-elem
+        width 6px
+        height 6px
+        background-color $active_element_color
+        opacity 0.5
+        border-radius 50%
+
+        &--active
+          opacity 1
+
+        &-container
+          padding 3px
+          cursor pointer
+    @media screen and (max-width 767px)
+      .VueCarousel-navigation
+        &-button
+          &:before
+            width 40px
+            height 40px
+        &-prev
+          &:before
+            left 25px
+        &-next
+          &:before
+            right 25px
+
+
+
+  &__image, &__video
+    display flex
+    align-items center
+    justify-content center
+    position relative
+    max-height 430px
+    height 100%
+
+    @media screen and (max-width 767px)
+      max-height 330px
+
+  &__image
+    min-height 280px
+
+    @media screen and (max-width 767px)
+      min-height 150px
+
+    & > img
+      max-height inherit
+      max-width 100%
+
+  &__video
+    background-color black
+    & > video
+      max-height inherit
+      width 100%
+
+  &__description
+    line-height 25px
+    margin 0 0 20px 0
+    padding 0 15px
+    word-wrap-break()
+
+    &-show-all
+      color $placeholder_color
+      margin 0 0 0 5px
+      cursor pointer
+
+    &-subcategories
+      margin 15px 0 0 0
+      word-break break-all
+
+    &-subcategory
+      display inline
+      color $active_element_color
+      line-height 25px
+      cursor pointer
+      margin 0 10px 0 0
+
+      &:before
+        content '#'
+
+  &__info
+    display flex
+    font-size 14px
+    color $placeholder_color
+    align-items center
+    border-bottom 1px solid $line_color
+    padding 0 15px 19px 15px
+
+    &-time
+      margin 0 auto 0 0
+
+    &-points
+      margin 0 5px 2px 0
+      width 18px
+      height 18px
+
+      &>svg
+        width 100%
+        height 100%
+
+    &-likes
+      margin 0 7px 0 14px
+      width 17px
+      height 16px
+
+      &>svg
+        width 100%
+        height 100%
+        transition fill 0.15s, color 0.15s
+
+      &.like
+        color $like_color
+
+        &>svg
+          fill $like_color
+
+  &__remove-question
+    position absolute
+    bottom calc(70px)
+    right 0
+    padding 0 15px
+    max-width 290px
+    z-index 101
+    display flex
+    justify-content flex-end
+
+  &__footer
+    height 70px
+    display flex
+    position relative
+
+    &-item
+      position relative
+      flex-basis 25%
+      flex-grow 1
+      display flex
+      flex-direction column
+      align-items center
+      padding 9px 0 0 0
+      &.tool-active
+        background $active_element_color
+        color white
+        .achievement-card__footer-item-text
+          color white
+      &-content
+        width auto
+        cursor pointer
+
+        &>svg
+          display block
+          margin 0 auto 4px auto
+          fill transparent
+          transition fill 0.3s
+
+        &.like
+          color $like_color
+
+          &>svg
+            fill $like_color
+
+        &.disabled
+          pointer-events none
+          color $placeholder_color
+          opacity 0.5
+
+      &-text
+        font-size 12px
+        line-height 15px
+        color $placeholder_color
+        text-align center

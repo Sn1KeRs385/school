@@ -1,0 +1,25 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.achievements-page-achievement
+  display flex
+  align-items baseline
+  font-size 14px
+  color $active_element_color
+  max-width 100%
+
+  &--complete
+    color $primary_text_color
+
+  &__state
+    margin 0 5px 0 0
+
+  &__name
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+
+  &__points
+    &:before
+      content '\00a0'
+
+    color $placeholder_color

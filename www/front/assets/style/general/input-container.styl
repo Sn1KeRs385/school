@@ -1,0 +1,67 @@
+@import "../params/colors.styl"
+@import "../mixins.styl"
+
+.input-container
+  width 100%
+  height 50px
+  background-color white
+  border 1px solid $border_input_color
+  border-radius 5px
+  display flex
+  align-items center
+  cursor inherit
+  position relative
+  z-index 1
+  padding 0 14px
+  transition border-color 0.15s, box-shadow 0.15s
+
+  &:hover
+    border-color #CCCCCC
+    z-index 3
+
+  &--focus
+    box-shadow 0 0 0 2px rgba(34,34,34,0.04)
+    border-color #CCCCCC
+    z-index 4
+
+  &__input, &__input-buffer
+    display block
+    flex-grow 1
+    flex-shrink 10
+    width 100%
+    line-height 20px
+    background-color transparent
+    placeholder($placeholder_color)
+    resize none
+    padding 0
+
+  &__input-buffer
+    position absolute
+    pointer-events none
+    opacity 0
+    max-height 0
+    height 0
+    display inline-block
+    width auto
+    white-space nowrap
+
+  &__label
+    display inline-block
+    align-self start
+    margin 0 0 5px 0
+
+  &--invalid
+    border-color $error_color !important
+
+    &^[0]--focus
+      box-shadow 0 0 0 2px alpha($error_color, 0.1) !important
+
+  &--disabled
+    pointer-events none
+    background-color $primary_back_color
+    color $border_input_color_focus !important
+    border-color $border_input_color !important
+    -webkit-text-fill-color $placeholder_color
+
+    & input
+      placeholder($border_input_color_focus)

@@ -1,0 +1,93 @@
+@import "../../../assets/style/params/colors.styl"
+
+.search-users-list
+  width 100%
+  background-color white
+  border-radius 10px
+  position relative
+  display flex
+  flex-direction column
+
+  &--no-result
+    min-height 100%
+
+  &__no-result
+    padding 15px
+    color $placeholder_color
+    display flex
+    justify-content center
+    align-items center
+    min-height 140px
+    flex-grow 1
+
+    &-text
+      padding 0 0 120px 0
+
+  &__loader
+    max-height 230px
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+    position sticky
+    top 60px
+
+    &-container
+      position absolute
+      z-index 15
+      top 0
+      bottom 0
+      right 0
+      left 0
+      background-color alpha(white, 0.7)
+      border-radius 10px
+
+  &__input
+    display flex
+    height 60px
+    border-bottom 1px solid $line_color
+    position sticky
+    top 60px
+    background-color white
+    border-radius 10px 10px 0 0
+    z-index 20
+    padding 10px 0 0 0
+    align-items center
+
+    &>.search-input
+      flex-grow 1
+
+    @media screen and (max-width 991px)
+      top -10px
+
+  &__settings
+    display none
+
+    @media screen and (max-width 991px)
+      display block
+      flex-shrink 0
+      margin 0 15px 0 0
+      color $placeholder_color
+      width 20px
+      height 20px
+      cursor pointer
+
+
+  &__counter
+    min-height 50px
+    line-height 15px
+    font-size 12px
+    letter-spacing 0.05px
+    text-transform uppercase
+    color $placeholder_color
+    padding 17px 15px
+    display flex
+    align-items center
+
+  &__list
+    height auto
+
+    &-item
+      display block
+      border-top 1px solid $line_color
+      height 70px

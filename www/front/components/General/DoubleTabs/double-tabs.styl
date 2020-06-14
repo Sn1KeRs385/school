@@ -1,0 +1,33 @@
+@import "../../../assets/style/params/colors.styl"
+
+.double-tabs
+  position relative
+
+  &__tabs
+    display flex
+
+  &__bottom-line
+    height 1.33px
+    background-color $line_color
+    width 100%
+
+  &__tab
+    position relative
+    height 100%
+    flex-grow 1
+    flex-basis 50%
+    display flex
+    color $primary_label_color
+
+    &--selected
+      color $active_element_color
+
+  &__selector
+    height 100%
+    width 50%
+    background-color $active_element_color
+    transition transform 0.3s
+    transform translateX(0)
+
+    &--right
+      transform translateX(100%)

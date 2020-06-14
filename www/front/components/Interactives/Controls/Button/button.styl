@@ -1,0 +1,71 @@
+@import "../../../../assets/style/params/colors.styl"
+@import "../../../../assets/style/mixins.styl"
+
+.button
+  width 100%
+  height 100%
+  border-radius 5px
+  color white
+  display flex
+  align-items center
+  cursor pointer
+  position relative
+  padding 0 14px
+  background-color $active_element_color
+  border 1px solid $active_element_color
+
+  &:focus
+    box-shadow 0 0 0 2px $secondary_button_border_color
+
+  &:not(.button__cancel):not(.button--secondary)
+    &:hover, &.tool-active
+      background-color #079791
+      border-color #079791
+
+
+
+  &--disabled
+    color alpha(white, 0.4)
+    background-color $active_element_color !important
+    border-color $active_element_color !important
+
+  &--secondary&--disabled
+    background-color $secondary_back_color !important
+    border-color $secondary_button_border_color !important
+    color alpha($active_element_color, 0.5)
+
+  &__text
+    text_rubik(16px, 20px, inherit)
+    text-align left
+    flex-grow 1
+    padding 8px 0
+
+  &__multiline-text
+    text_rubik(14px, 16px, $primary_text_color)
+    text-align left
+    padding 8px 0
+
+  &__loader-container
+    flex-shrink 0
+    width 30px
+    height 30px
+    margin 0 0 0 15px
+
+  &__cancel
+    background white
+    border-color $secondary_button_border_color
+    color $primary_button_back_color
+
+  &--secondary
+    min-height 0
+    background-color transparent
+    border-color $secondary_button_border_color
+    color $active_element_color
+
+    &:hover
+      border-color $active_element_color
+      background-color transparent
+
+    &:focus
+      box-shadow 0 0 0 2px alpha($primary_text_color, 0.04)
+

@@ -1,0 +1,27 @@
+@import "../../../assets/style/params/colors.styl"
+
+.achievements-category
+  background-color white
+  border-radius 10px
+
+  @media screen and (max-width 575px)
+    border-radius 0
+
+  &__tabs
+    padding 10px 0 0 0
+
+  &__tab
+    height 50px
+    padding 15px
+    display flex
+    justify-content center
+    flex-grow 1
+    cursor pointer
+
+  &__search
+    border-bottom 1px solid $line_color
+
+  &__body
+    position relative
+    overflow hidden
+    border-radius 0 0 10px 10px

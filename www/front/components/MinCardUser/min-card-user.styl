@@ -1,0 +1,66 @@
+@import "../../assets/style/params/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.min-card-user
+  height 69px
+  display flex
+  align-items center
+
+  &__content
+    padding 0 10px 0 10px
+    flex-grow 1
+    min-width 0
+
+    &-name
+      text_rubik(16px, 20px, $primary_text_color)
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+
+    &-points
+      text_rubik(14px, 21px, $primary_text_color)
+      color $active_element_color
+      display flex
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+
+    &-line
+      display flex
+      margin 0 10px 0 0
+
+    &-star, &-like
+      height 20px
+      width 14px
+      position relative
+      margin 0 3px 0 0
+      flex-shrink 0
+
+      &>svg
+        height 100%
+        width 100%
+
+    &-login
+      text_rubik(14px, 21px, $placeholder_color)
+      margin 0 0 0 5px
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+
+
+  &__avatar
+    width 40px
+    height 40px
+    border-radius 50%
+    background-position center
+    background-repeat no-repeat
+    background-size cover
+    margin 0 0 0 14px
+    flex-shrink 0
+    flex-grow 0
+
+  &__arrow
+    color $icon_color
+    flex-shrink 0
+    flex-grow 0
+    margin 0 15px 0 auto

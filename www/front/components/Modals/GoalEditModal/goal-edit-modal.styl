@@ -1,0 +1,79 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.goal-edit-modal
+  pointer-events auto
+  width 100%
+  max-width 670px
+  background-color white
+  border-radius 10px
+  display flex
+  flex-direction column
+
+  &__close
+    display block
+    position fixed
+    width 60px
+    height 60px
+    z-index 1
+    color white
+    top 30px
+    right 30px
+    pointer-events auto
+    border-radius 50%
+    cursor pointer
+
+    @media screen and (max-width 991px)
+      position absolute
+      left 50%
+      margin-left -30px
+      top 20px
+
+    @media screen and (max-width 767px)
+      display none
+
+  &__container
+    display flex
+    flex-direction column
+    align-items center
+    pointer-events none
+
+    @media screen and (max-width 767px)
+      flex-grow 1
+      margin 0 0 100px 0
+
+  &__back-to-profile
+    display none
+    pointer-events auto
+
+    @media screen and (max-width 767px)
+      display block
+      width 100%
+
+  @media screen and (max-width 767px)
+    max-width none
+    border-radius 0
+    height auto
+    min-height 0
+    flex-grow 1
+
+  &__form
+    padding 10px 15px 60px 15px
+
+    &-title
+      min-height 50px
+      border-bottom 1px solid $line_color
+      font-size 20px
+      padding 20px 15px 20px 15px
+      display flex
+      align-items center
+      margin 0 0 20px 0
+
+    &-text-area
+      min-height 120px
+
+    &-submit
+      padding 10px 0 0 0
+
+    &-subcategories
+      margin 10px 0 0 0

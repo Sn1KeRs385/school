@@ -1,0 +1,355 @@
+@import "./colors.styl"
+@import "./mixins.styl"
+
+.default-layout
+  position relative
+  display flex
+  flex-direction column
+  min-height 100vh
+  background veryLightGray
+
+  .default-layout__header
+    position fixed
+    display: flex
+    width 100%
+    height 70px
+    background-color blackColor
+    z-index 100
+
+    .nuxt-link-active
+      color #ffffff!important
+
+      .default__nav-icon
+        svg
+          circle
+            stroke #ffffff
+          path
+            stroke #ffffff
+
+    @media (max-width: 575px)
+      height 60px
+      flex-wrap wrap
+
+    .default__mobile-bottom-block
+      display flex
+      flex-grow 1
+      background-color blackColor
+      border-top 1px solid opacityWhite
+
+      @media (max-width: 575px)
+        height 79px
+
+      .default__nav-icon
+        margin-top 4px
+        margin-right 5px
+
+        @media (max-width: 575px)
+          margin-top 14px
+          margin-right 0px
+          margin-bottom -5px
+
+      .default__main-page-button
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        rubik-regular()
+        font-size 14px
+        line-height 20px
+        color grayColor
+
+        @media (max-width: 575px)
+          width 25%
+          justify-content flex-start
+
+        .default__logo
+          position relative
+          padding 15px
+          border-right 1px solid opacityWhite
+
+          @media (max-width: 989px)
+            padding-left 15px
+
+          @media (max-width: 575px)
+            border none
+            padding 0
+
+      .default-layout__profile
+        position relative
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        rubik-regular()
+        font-size 16px
+        line-height 20px
+        color grayColor
+        width 25%
+        justify-content flex-start
+
+        @media (max-width: 575px)
+          font-size 14px
+
+      .default-layout__search
+        position relative
+        display flex
+        align-items center
+        flex-grow 1
+        rubik-regular()
+        font-size 16px
+        line-height 20px
+        color grayColor
+        padding-left 14px
+        margin-right 14px
+
+        @media (max-width: 767px)
+          margin-right 7px
+          padding-left 10px
+          padding-right 10px
+
+        @media (max-width: 575px)
+          display flex
+          flex-direction column
+          justify-content center
+          font-size 14px
+          align-items center
+          padding 0
+          margin 0
+          width 25%
+          justify-content flex-start
+          cursor: pointer
+
+      .default-layout__rating
+        position relative
+        display flex
+        align-items center
+        width 160px
+        rubik-regular()
+        font-size 16px
+        line-height 20px
+        color grayColor
+        border-left 1px solid opacityWhite
+        padding-left 14px
+
+        @media (max-width: 767px)
+          width auto
+          padding-left 10px
+          padding-right 10px
+
+        @media (max-width: 575px)
+          display flex
+          flex-direction column
+          justify-content center
+          align-items center
+          width unset
+          border none
+          width 25%
+          font-size 14px
+          justify-content flex-start
+
+    .default-layout__user-dropdown
+      position relative
+      display flex
+      width 300px
+      height 100%
+      border-left 1px solid opacityWhite
+      cursor pointer
+
+      @media (max-width: 575px)
+        width: calc(100% - 61px);
+
+      .user-dropdown__button
+        display flex
+        align-items center
+        rubik-regular()
+        font-size 16px
+        line-height 20px
+        color grayColor
+        height 100%
+        width 100%
+        padding-left 15px
+        cursor pointer
+
+        &:before
+          content ''
+          position absolute
+          right 14px
+          width 7px
+          height 12px
+          background-image url('../image/close_dropdown.svg')
+          background-size contain
+          background-position center
+          background-repeat no-repeat
+
+        @media (max-width: 575px)
+          padding-left 9px
+
+        &_open
+          background-color lightBlackColor
+          border-bottom 1px solid opacityWhite
+
+          &:before
+            content ''
+            position absolute
+            right 14px
+            width 12px
+            height 7px
+            background-image url('../image/open_dropdown.svg')
+            background-size contain
+            background-position center
+            background-repeat no-repeat
+
+        .user-dropdown__avatar
+          width 44px
+          height 44px
+          border-radius 50%
+
+          @media (max-width: 575px)
+            width 40px
+            height 40px
+
+        .user-dropdown__nickname
+          rubik-regular()
+          font-size 16px
+          line-height 20px
+          color grayColor
+          margin-left 10px
+
+      .user-dropdown__list
+        position absolute
+        display none
+        background-color lightBlackColor
+        width 100%
+        top 70px
+
+        @media (max-width: 767px)
+          top 60px
+          left -1px
+
+        &_open
+          display block
+
+        .user-dropdown__item
+          position relative
+          display: block
+          rubik-regular()
+          color grayColor
+          padding 15px
+          border-bottom 1px solid opacityWhite
+          cursor: pointer
+          color #ffffff
+
+        .user-dropdown__view_profile
+          display flex
+          flex-direction column
+          rubik-regular()
+          color #ffffff
+
+          span
+            rubik-regular()
+            font-size 14px
+            color grayColor
+            margin-top 3px
+
+        .user-dropdown__exit_profile
+          padding-left 45px
+          cursor pointer
+
+          &:before
+            content ''
+            position absolute
+            top 16px
+            left 15px
+            width 19px
+            height 19px
+            background-image url('../image/exit.svg')
+            background-size contain
+            background-position center
+            background-repeat no-repeat
+            cursor pointer
+
+    .default-layout__add
+      position relative
+      display flex
+      justify-content center
+      align-items center
+      width 71px
+      height 100%
+      border-left 1px solid opacityWhite
+
+      @media (max-width: 575px)
+        width 61px
+        padding 12px
+
+      .default-layout__button
+        width 40px
+        height 40px
+
+        @media (max-width: 767px)
+          width 36px
+          height 36px
+
+.default-layout__content
+  display flex
+  flex-grow 1
+
+  .default-layout__form-container
+    display flex
+    flex-direction column
+    box-sizing border-box
+    background white
+    margin 110px auto 30px
+    min-height 450px
+    padding 30px 85px
+    border-radius 10px
+
+    @media (max-width: 989px)
+      padding 30px 70px
+
+    @media (max-width: 575px)
+      margin 110px auto 30px
+      max-width 410px
+      padding 10px 15px 40px
+      min-height 375px
+
+    @media (max-width: 409px)
+      margin 110px -20px 30px
+      border-radius 0px
+      max-width unset
+
+    .default-layout__form-selector
+      position relative
+      display flex
+      flex-direction row
+      border-bottom 1px solid middleGrayColor
+
+      .default-layout__select-item
+        rubik-regular()
+        font-size 16px
+        line-height 25px
+        text-align center
+        color grayColor
+        padding 12px 0px
+        cursor pointer
+        width 50%
+
+        &:hover
+          border-bottom 1px solid grayColor
+          margin-bottom -1px
+
+        &_active
+          color aquaColor
+
+    .default-layout__select_border_aqua
+      position absolute
+
+      bottom -1px
+      left 0
+
+      width 50%
+
+      border-bottom 1px solid aquaColor (!important)
+      transition left .2s
+
+      &_right
+        left 50%

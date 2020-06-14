@@ -1,0 +1,24 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.mobile-back-to
+  display inline-flex
+  align-items center
+  text_rubik(16px, 20px, $active_element_color)
+  margin 20px 0
+  padding 0 15px
+  position relative
+  z-index 10
+  cursor pointer
+
+  &__arrow
+    display flex
+    align-items center
+    justify-content center
+    width 30px
+    height 30px
+    border-radius 50%
+    background-color $active_element_color
+    color white
+    transform rotateZ(180deg)
+    margin 0 10px 0 0

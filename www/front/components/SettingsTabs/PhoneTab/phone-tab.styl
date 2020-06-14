@@ -1,0 +1,40 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.phone-tab
+  padding 0 65px 60px 0
+
+  &__description
+    padding 0 40px 0 15px
+    margin 30px 0 30px 0
+    text_rubik()
+
+    @media screen and (max-width 1199px)
+      margin 15px 0 0 0
+      padding 0 15px 0 15px
+
+  @media screen and (max-width 1199px)
+    padding 15px 15px 15px 15px
+
+  &__field
+    margin 0 0 30px 0
+
+    @media screen and (max-width 1199px)
+      margin 0 0 15px 0
+
+  &__phone-input-container
+    margin 0 0 10px 0
+
+  &__phone-verify
+    display flex
+
+  &__button-send-code
+    flex-grow 1
+    flex-basis 50%
+    flex-shrink 0
+    margin 0 10px 0 0
+
+  &__input-code
+    flex-grow 1
+    flex-basis 50%
+    flex-shrink 0

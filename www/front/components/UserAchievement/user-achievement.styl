@@ -1,0 +1,23 @@
+.user-achievement
+  &__back-to
+
+    @media screen and (min-width 576px)
+
+      & .mobile-back-to
+        margin-top 0
+
+  &__card
+    &--disabled .achievement-card, &--disabled .comments-control__header, &--disabled .comments-control__wrapper
+      pointer-events none
+      position relative
+
+      &:before
+        content ''
+        position absolute
+        border-radius inherit
+        z-index 101
+        background-color alpha(white, 0.7)
+        top 0
+        right 0
+        left 0
+        bottom 0

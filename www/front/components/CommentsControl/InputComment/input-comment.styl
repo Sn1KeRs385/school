@@ -1,0 +1,49 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.input-comments
+  display flex
+
+  &__avatar
+    margin 5px 15px 0 0
+    border-radius 50%
+    width 30px
+    height 30px
+    flex-shrink 0
+    background-repeat no-repeat
+    background-size cover
+    background-position center
+
+  &__input
+    display block
+    padding 0
+    resize none
+    placeholder($active_element_color)
+    background-color transparent
+    width 100%
+    font-size 14px
+    max-height 100px
+    //overflow hidden
+
+    &--focus
+      placeholder($placeholder_color)
+
+    &-container
+      padding 9px 14px
+      height auto
+      flex-direction column
+      align-items start
+      flex-grow 1
+      cursor text
+
+  &__send
+    font-size 14px
+    color $active_element_color
+    margin 9px 0 0 0
+    pointer-events none
+    opacity 0.4
+    cursor pointer
+
+    &--active
+      pointer-events auto
+      opacity 1

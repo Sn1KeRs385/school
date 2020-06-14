@@ -1,0 +1,82 @@
+@import "../../assets/style/params/colors.styl"
+
+.comments-control
+  height 100%
+  display flex
+  flex-direction column
+
+  @media screen and (max-width 991px)
+    min-height 0
+
+  &__header
+    background white
+    height 70px
+    border-bottom 1px solid $line_color
+    border-radius 10px 10px 0 0
+    flex-shrink 0
+
+    @media screen and (max-width 575px)
+      border-radius 0
+
+    &-title
+      padding 20px 15px 0 15px
+      font-size 20px
+      line-height 25px
+
+  &__wrapper
+    display flex
+    flex-direction column
+    flex-grow 1
+    flex-shrink 1
+    min-height 0
+
+  &__body
+    background-color white
+    padding 0 15px 0 15px
+    overflow-y auto
+    display flex
+    flex-direction column
+    flex-grow 1
+    flex-shrink 1
+
+  &__load-more
+    height 30px
+    color $active_element_color
+    flex-shrink 0
+    display flex
+    align-items center
+    margin 15px 0 15px 0
+    justify-content center
+    &>span
+      cursor pointer
+
+  &__footer
+    position absolute
+    background-color white
+    border-radius 0 0 10px 10px
+    padding 15px 15px 15px 15px
+    width 100%
+    min-height 100%
+
+    @media screen and (max-width 991px)
+      position relative
+      min-height inherit
+
+    @media screen and (max-width 575px)
+      border-radius 0
+
+    &-container
+      flex-shrink 0
+      border-radius 0 0 10px 10px
+      position relative
+      height 100px
+
+      @media screen and (max-width 991px)
+        border-top 1px solid $line_color
+        position sticky
+        bottom 1px
+        border-radius 0
+        height auto
+
+      @media screen and (max-width 575px)
+        border-radius 0

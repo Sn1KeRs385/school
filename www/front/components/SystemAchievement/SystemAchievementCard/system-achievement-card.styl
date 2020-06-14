@@ -1,0 +1,122 @@
+@import "../../../assets/style/params/colors.styl"
+
+.system-achievements-card
+  &__content
+    background-color white
+    border-radius 10px
+
+  &__back-to
+    @media screen and (min-width 576px)
+      & .mobile-back-to
+        margin-top 0
+
+  @media screen and (max-width 575px)
+    margin 0
+    border-radius 0
+
+  &__header
+    padding 25px 15px 23px 15px
+    border-bottom 1px solid $line_color
+
+    &-section
+      display flex
+      align-items center
+      font-size 14px
+      color $placeholder_color
+      margin 0 0 5px 0
+
+    &-settings
+      display inline-block
+      width 16px
+      height 16px
+      margin 0 7px
+
+      &>svg
+        width 100%
+        height 100%
+
+    &-title
+      font-size 20px
+      line-height 25px
+      margin 0 0 7px 0
+
+    &-tag
+      display inline
+      color $active_element_color
+      font-size 14px
+
+      &:before
+        content '#'
+
+  &__options
+    border-bottom 1px solid $line_color
+    padding 15px 0 20px 0
+    display flex
+
+    &-item
+      padding 0 15px 0 0
+
+      &-title
+        font-size 25px
+        line-height 30px
+        color $active_element_color
+
+      &-text
+        font-size 14px
+        color $placeholder_color
+
+        &.arrow
+          &:after
+            content '>'
+            margin 0 0 0 5px
+
+
+      &-container
+        flex-grow 1
+        flex-basis 33.3333333%
+
+        &:first-child
+          &>*:first-child
+            padding 0 0 0 15px
+
+  &__item
+    padding 18px 15px 23px 15px
+    border-bottom 1px solid $line_color
+
+    &-title
+      font-size: 12px;
+      line-height: 15px;
+      letter-spacing: 0.65px;
+      text-transform: uppercase;
+      color $placeholder_color
+      margin 0 0 7px 0
+
+    &-text
+      line-height 25px
+      letter-spacing 0.01px
+
+  &__make-goal
+    padding 20px 15px 20px 15px
+
+    &-button-plus
+      margin 0 9px 0 4px
+      width 22px
+      height 22px
+
+    &-report
+      height 90px
+      display flex
+      justify-content center
+      align-items center
+
+      &-point
+        width 20px
+        height 20px
+        color $placeholder_color
+        margin 0 10px 0 0
+
+      &-title
+        display flex
+        font-size 14px
+        color $placeholder_color
+

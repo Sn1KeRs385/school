@@ -1,0 +1,164 @@
+@import "./colors.styl"
+@import "./mixins.styl"
+
+.auth-layout
+  position relative
+  display flex
+  flex-direction column
+  min-height 100vh
+  background veryLightGray
+
+  .auth-layout__header
+    position fixed
+    width 100%
+    height 70px
+    background-color blackColor
+    z-index 100
+
+    .auth__logo
+      position absolute
+      top 0px
+      left 0px
+      padding 15px
+      border-right 1px solid opacityWhite
+
+    .auth-layout__language
+      position absolute
+      top 0
+      right 148px
+      width 74px
+      height 100%
+
+      .language__button
+        display flex
+        align-items center
+        rubik-regular()
+        font-size 16px
+        line-height 20px
+        color grayColor
+        height 100%
+        padding-left 35px
+        cursor pointer
+
+        &:before
+          content ''
+          position absolute
+          left 10px
+          width 20px
+          height 20px
+          background-image url('../image/language.svg')
+          background-size contain
+          background-position center
+          background-repeat no-repeat
+
+      .language__list
+        position absolute
+        left 3px
+        display none
+        background-color lightBlackColor
+        width 212px
+
+        &:before
+          content ''
+          position absolute
+          left 40px
+          top -7px
+          width 14px
+          height 14px
+          background-color lightBlackColor
+          transform rotate(45deg)
+
+        &_open
+          display block
+
+        .language__item
+          position relative
+          rubik-regular()
+          color grayColor
+          padding 15px
+          border-bottom 1px solid opacityWhite
+          cursor: pointer
+
+          &_select
+            color #ffffff
+
+            &:before
+              content ''
+              position absolute
+              right 19px
+              width 11px
+              height 10px
+              background-image url('../image/check.svg')
+              background-size contain
+              background-position center
+              background-repeat no-repeat
+
+    .auth-layout__button_guest
+      position absolute
+      top 25px
+      right 15px
+
+.auth-layout__content
+  display flex
+  flex-grow 1
+
+  .auth-layout__form-container
+    display flex
+    flex-direction column
+    box-sizing border-box
+    background white
+    margin 110px auto 30px
+    min-height 450px
+    padding 30px 85px
+    border-radius 10px
+
+    @media (max-width: 989px)
+      padding 30px 70px
+
+    @media (max-width: 575px)
+      margin 110px auto 30px
+      max-width 410px
+      padding 10px 15px 40px
+      min-height 375px
+
+    @media (max-width: 409px)
+      margin 110px -20px 30px
+      border-radius 0px
+      max-width unset
+
+    .auth-layout__form-selector
+      position relative
+      display flex
+      flex-direction row
+      border-bottom 1px solid middleGrayColor
+
+      .auth-layout__select-item
+        rubik-regular()
+        font-size 16px
+        line-height 25px
+        text-align center
+        color grayColor
+        padding 12px 0px
+        cursor pointer
+        width 50%
+
+        &:hover
+          border-bottom 1px solid grayColor
+          margin-bottom -1px
+
+        &_active
+          color aquaColor
+
+    .auth-layout__select_border_aqua
+      position absolute
+
+      bottom -1px
+      left 0
+
+      width 50%
+
+      border-bottom 1px solid aquaColor (!important)
+      transition left .2s
+
+      &_right
+        left 50%

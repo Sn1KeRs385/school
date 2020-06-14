@@ -1,0 +1,226 @@
+@import "../../assets/style/params/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.profile-card
+  &__sidebar
+    width 340px
+
+  &-handler
+    position relative
+
+  &__info
+    &-expandable
+      position relative
+      &-data
+        background-color white
+        border-radius 0 0 10px 10px
+
+        @media screen and (max-width 575px)
+          border-radius 0
+
+      @media screen and (min-width 576px)
+        max-height none !important
+
+      @media screen and (max-width 575px)
+        display flex
+        flex-direction column
+        justify-content flex-end
+        overflow hidden
+        transition max-height 0.3s
+
+    width 330px
+    margin 0 0 0 10px
+
+    @media screen and (max-width 991px)
+      width 100%
+      margin 0 auto 10px auto
+
+  &__edit-profile
+    padding 0 15px
+    border-top 1px solid $line_color
+    height 69px
+    display flex
+    align-items center
+    text_rubik(16px, 25px, $active_element_color)
+
+    &>svg
+      flex-shrink 0
+      margin 0 10px 0 0
+
+
+  &__item
+    padding 15px 15px 14px 15px
+    border-top 1px solid $line_color
+    text_rubik(14px)
+
+    @media screen and (max-width 575px)
+      &:first-child
+        border-top-width 0
+
+    &-title
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text_rubik(12px, 20px, $primary_label_color)
+      margin 0 0 10px 0
+
+    &-line
+      margin 0 0 5px 0
+
+      &:last-child
+        margin 0
+
+    &-social
+      padding 0 19px 0 0
+      position relative
+
+      &:after
+        position absolute
+        content ''
+        top 50%
+        margin-top -2px
+        right 8px
+
+        width 3px
+        height 3px
+        border-radius 50%
+        background-color $icon_color
+
+      &:last-child
+        padding 0
+
+        &:after
+          display none
+
+  &__rewards
+    &-content
+      padding 0 5px 60px 5px !important
+      &-empty
+        font-size 14px
+        padding 20px
+      &__item
+        min-height 150px
+        display flex
+        align-items center
+        flex-direction column
+        background white
+        border 1px solid $border_input_color
+        border-radius 10px
+        padding 15px 20px 17px 20px
+        margin: 20px 0
+        &__img
+          width 60px
+          height 60px
+          margin-bottom 13px
+          &-icon, &__different-icon
+            width 60px
+            height 60px
+          &__different-icon
+            background-size cover
+            background-repeat no-repeat
+            background-position center
+        &-wrapper
+          cursor pointer
+          width 50%
+          padding 0 5px
+        &__title
+          text-overflow ellipsis
+          word-break break-word
+          font-size 14px
+          line-height 15px
+          text-align center
+          color $link_text_color
+
+  &__rewards, &__subscribers, &__followers
+    background-color white
+    border-radius 10px
+    margin 10px 0 0 0
+    overflow hidden
+
+    &-placeholder
+      display flex
+      align-items center
+      padding 14px 0 15px 0
+
+      &-avatar
+        width 60px
+        height 60px
+        background-position center
+        background-size contain
+        background-repeat no-repeat
+        background-image url('../../static/no-avatar.svg')
+        margin 0 15px
+
+      &-label
+        text_rubik(14px)
+
+      &-link-search
+        color $active_element_color
+
+    @media screen and (max-width 575px)
+      border-radius 0
+
+    &-title
+      display flex
+      align-items center
+      text_rubik()
+      padding 0 15px
+      height 50px
+      border-bottom 1px solid $line_color
+      cursor pointer
+
+      &.tool-active
+        background $active_element_color
+        color white
+        .profile-card__followers-title, .profile-card__subscribers-title
+          &-count, &-arrow
+            color white
+
+      &-count
+        margin 0 0 0 10px
+        text_rubik(14px, 20px, $primary_label_color)
+
+      &-arrow
+        margin 0 0 0 auto
+        color $icon_color
+
+    &-content
+      display flex
+      width 100%
+      overflow-x auto
+      margin 0 0 -60px 0
+      padding 0 0 60px 0
+
+    &-peoples
+      display flex
+
+      align-items center
+      padding 14px 5px 15px 15px
+
+    &-people
+      margin 0 10px 0 0
+      width 60px
+
+      &-avatar
+        display block
+        flex-shrink 0
+        height 60px
+        width 60px
+        border-radius 50%
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+
+      &-name
+        margin 5px 0 0 0
+        font-size 14px
+        line-height 14px
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        text-align center
+  @media screen and (max-width 767px)
+    &__rewards
+      &-content
+        padding 0 20px 60px 20px !important
+        &-empty
+          padding 15px

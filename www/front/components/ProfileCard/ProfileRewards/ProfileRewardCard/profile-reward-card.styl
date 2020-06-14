@@ -1,0 +1,85 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.profile-reward-card
+  display flex
+  flex-direction column
+  justify-content space-between
+  height 140px
+  padding 15px 15px 12px 15px
+  background white
+  border 1px solid $line_color
+  border-radius 10px
+  margin-top 10px
+  cursor pointer
+  &-achieved
+    background $secondary_button_border_color
+
+  &__title, &__achieved__title
+    word-break break-word
+    font-weight normal
+    font-size 16px
+    line-height 20px
+    color $primary_text_color
+
+  &__progress-bar
+    background $reward_card_progress
+    border-radius 5px
+    height 10px
+    position relative
+    margin-bottom 23px
+    &__progress
+      position absolute
+      height 100%
+      background $active_element_color
+      border-radius 5px
+  &__progress
+    &__content
+      display flex
+      align-items center
+      &__text
+        font-size 14px
+        line-height 20px
+        color $primary_label_color
+        margin-left 9px
+      &__arrow
+        color $primary_label_color
+        margin-left auto
+
+  &__achieved
+    &__header
+      display flex
+      align-items flex-start
+      justify-content center
+      position relative
+      &__date
+        position absolute
+        left 0
+        color $reward_card_date
+        font-size: 14px;
+        line-height: 20px;
+      &__arrow
+        position absolute
+        right 0
+        color $primary_label_color
+      &__icon, &__different-icon
+        width 60px
+        height 60px
+      &__different-icon
+        background-size cover
+        background-repeat no-repeat
+        background-position center
+    &__title
+      margin-top 10px
+
+@media screen and (max-width: 767px)
+  .adjacent-modal-container
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+    background-color: rgba(0,0,0,0.8);
+

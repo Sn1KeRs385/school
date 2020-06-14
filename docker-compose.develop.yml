@@ -1,0 +1,121 @@
+version: '3.7'
+services:
+  nginx:
+    container_name: school_nginx
+    image: 'nginx:1.17.4-alpine'
+    restart: always
+    volumes:
+      - './www/laravel/:/var/www/laravel/:cached'
+      - './nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:cached'
+    ports:
+      - '80:80'
+    depends_on:
+      - laravel
+      - node_front
+
+  node_front:
+    container_name: school_node_front
+    build:
+      context: ./
+      dockerfile: school_node_front.dockerfile
+    restart: always
+    working_dir: /var/www/node_front/
+    command: npm run dev
+    volumes:
+      - './www/front/:/var/www/node_front/:cached'
+    ports:
+      - '3000:3000'
+
+  laravel:
+    container_name: school_laravel
+    image: 'ishaburov/laravel:latest'
+    #    build:
+    #      context: ./
+    #      dockerfile: laravel.dockerfile
+    restart: always
+    working_dir: /var/www/laravel/
+    volumes:
+      - './www/laravel/:/var/www/laravel/:cached'
+      - './config/uploads.ini:/usr/local/etc/php/conf.d/php.ini:cached'
+    depends_on:
+      - mysqldb
+
+  laravel_cron:
+    container_name: school_laravel_cron
+    build:
+      context: ./
+      dockerfile: laravel_cron.dockerfile
+    restart: always
+    working_dir: /var/www/laravel/
+    volumes:
+      - './www/laravel/:/var/www/laravel/:cached'
+    depends_on:
+      - mysqldb
+      - redisdb
+
+  supervisord:
+    container_name: school_supervisord
+    build:
+      context: ./
+      dockerfile: supervisord.dockerfile
+    restart: always
+    working_dir: /var/www/laravel/
+    volumes:
+      - './www/laravel/:/var/www/laravel/:cached'
+      - './supervisord:/home/supervisord'
+      - './logs:/var/log/'
+    depends_on:
+      - mysqldb
+      - redisdb
+
+  mysqldb:
+    container_name: school_mysqldb
+    image: 'mysql:5.7'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=school
+      - MYSQL_USER=school
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - './mysql-data:/var/lib/mysql:cached'
+
+  adminer:
+    container_name: school_adminer
+    image: 'adminer:latest'
+    restart: always
+    ports:
+      - '8006:8080'
+    depends_on:
+      - mysqldb
+
+  redisdb:
+    container_name: school_redisdb
+    image: redis
+    restart: always
+    volumes:
+      - './redis-data:/data'
+
+  composer:
+    container_name: school_composer
+    image: 'ishaburov/laravel:latest'
+    volumes:
+      - './www/laravel/:/var/www/laravel/'
+      - './config/uploads.ini:/usr/local/etc/php/conf.d/php.ini:cached'
+    working_dir: /var/www/laravel/
+    command: composer install
+
+  elastic:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.2.0'
+    container_name: elastic
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - './elastic-data/:/usr/share/elasticsearch/data:cached'

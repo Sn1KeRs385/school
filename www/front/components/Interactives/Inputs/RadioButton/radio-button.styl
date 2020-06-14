@@ -1,0 +1,74 @@
+@import "../../../../assets/style/params/colors.styl"
+@import "../../../../assets/style/mixins.styl"
+
+.radio-button
+  display flex
+  cursor pointer
+  position relative
+
+  &>input
+    opacity 0
+    position absolute
+    width 0
+    height 0
+
+  &:hover
+    &>.check-box__box
+      border-color #CCCCCC
+
+  &--disabled
+    color $placeholder_color
+
+  &__box
+    position relative
+    border 1px solid $border_input_color
+    height 24px
+    width 24px
+    flex-grow 0
+    display flex
+    justify-content center
+    align-items center
+    border-radius 50%
+    flex-shrink 0
+    color transparent
+    transition border-color 0.15s, box-shadow 0.15s
+
+    &:after
+      content ''
+      width 12px
+      height 12px
+      background-color $active_element_color
+      border-radius 50%
+      display block
+      position absolute
+      transform scale(0)
+      transition transform 0.15s
+
+    &--checked
+      &:after
+        transform scale(1)
+
+    &--focus
+      box-shadow 0 0 0 2px #F6F6F6
+      border-color $border_input_color_focus
+
+    &--disabled
+      border-color $border_input_color !important
+      color alpha($active_element_color, 0.3)
+      &::before
+        position absolute
+        content ''
+        background-color $secondary_back_color
+        top 0
+        bottom 0
+        left 0
+        right 0
+        border-radius 50%
+      &:after
+        background-color alpha($active_element_color, 0.5)
+
+  &__label
+    margin 0 0 0 10px
+    display block
+    flex-grow 1
+    word-wrap-break()

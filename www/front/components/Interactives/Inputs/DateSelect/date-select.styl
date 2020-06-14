@@ -1,0 +1,49 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.date-select
+  display flex
+
+  &__input-day, &__input-month, &__input-year
+    position relative
+
+  &__input-day:hover, &__input-month:hover, &__input-year:hover
+    z-index 3
+
+  &__input-day
+    flex-basis 75px
+    flex-shrink 0
+    margin 0 -1px 0 0
+
+    & .multiselector__value-container
+      border-radius 5px 0 0 5px
+
+    & .multiselector__value-container--focus
+      border-radius 5px 0 0 0
+
+    & .multiselector__body
+      border-top-right-radius 0
+
+  &__input-month
+    flex-grow 1
+    margin 0 -1px 0 0
+
+    & .multiselector__value-container
+      border-radius 0
+
+    & .multiselector__body
+      border-top-right-radius 0
+      border-top-left-radius 0
+
+  &__input-year
+    flex-basis 94px
+    flex-shrink 0
+    margin 0 -1px 0 0
+
+    & .multiselector__value-container
+      border-radius 0 5px 5px 0
+
+    & .multiselector__value-container--focus
+      border-radius 0 5px 0 0
+
+    & .multiselector__body
+      border-top-left-radius 0

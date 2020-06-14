@@ -1,0 +1,37 @@
+@import "../../assets/style/params/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.page-navigation-menu-link
+  position relative
+  padding 19px 35px 19px 15px
+  min-height 70px
+  display flex
+  align-items center
+  border-top 1px solid transparent
+  border-bottom 1px solid $border_input_color
+  color $primary_text_color
+
+  &-arrow
+    position absolute
+    width 9px
+    height 16px
+    right 12px
+    color $icon_color
+
+  &.nuxt-link-active
+    color $active_element_color
+
+  &.nuxt-link-active > &-arrow
+    color $active_element_color
+
+  &:last-child
+    border-bottom-color transparent
+
+  &-icon
+    width 30px
+    height 30px
+    margin 0 10px 0 0
+    color inherit
+
+  &-text
+    text_rubik(16px, 20px, inherit)

@@ -1,0 +1,135 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.system-achievement-users-complete
+  position relative
+
+  &__first-load
+    padding 100px 0 0 0
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    background-color white
+    border-radius 10px
+    z-index 15
+    display flex
+    justify-content center
+
+    &-loader
+      width 50px
+      height 50px
+
+
+
+  &__close
+    display none
+
+    @media screen and (min-width 768px)
+      display block
+      position fixed
+      width 60px
+      height 60px
+      z-index 1
+      color white
+      top 30px
+      right 30px
+      pointer-events auto
+      border-radius 50%
+      cursor pointer
+
+  &__container
+    display flex
+    flex-direction column
+    align-items center
+    pointer-events none
+
+    @media screen and (max-width 767px)
+      flex-grow 1
+      margin 0 0 100px 0
+
+  overflow-x hidden
+  pointer-events auto
+  height 560px
+  width 100%
+  max-width 500px
+  background-color white
+  border-radius 10px
+  display flex
+  flex-direction column
+
+  &__back-to-profile
+    display none
+    pointer-events auto
+
+    @media screen and (max-width 767px)
+      display block
+      width 100%
+
+  @media screen and (max-width 767px)
+    max-width none
+    border-radius 0
+    height auto
+    min-height 0
+    flex-grow 1
+
+  &__header, &__message-info
+    flex-shrink 0
+    padding 25px 15px 19px 15px
+    border-top-right-radius inherit
+    border-top-left-radius inherit
+    background-color white
+    position relative
+    z-index 10
+    border-bottom 1px solid $line_color
+
+  //&__message-info
+  //  font-size 12px
+
+  &__search-input
+    flex-shrink 0
+    height 50px
+    border-bottom 1px solid $line_color
+
+  &__search-result
+    overflow-y auto
+    overflow-x hidden
+    border-bottom-right-radius inherit
+    border-bottom-left-radius inherit
+    height 400px
+
+    @media screen and (max-width 767px)
+      overflow-y hidden
+      height 100%
+
+    &-loader
+      width 50px
+      height 50px
+
+      &-container
+        display flex
+        justify-content center
+        padding 50px 0 0 0
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        z-index 15
+        background-color alpha(white, 0.7)
+
+    &-container
+      flex-grow 1
+      overflow-x hidden
+      position relative
+      border-bottom-right-radius inherit
+      border-bottom-left-radius inherit
+
+    &-item
+      display block
+      border-bottom 1px solid $line_color
+      cursor pointer
+
+      &:last-child
+        border-color transparent

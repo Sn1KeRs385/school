@@ -1,0 +1,59 @@
+@import "../../../../assets/style/params/colors.styl"
+
+.file-input
+
+  &__container
+    height auto
+
+  &__camera
+    margin 0 9px 0 0
+    height 16px
+
+  &__files
+    margin 10px 0 0 0
+    display flex
+    flex-wrap wrap
+
+  &__file
+    position relative
+    border-radius 5px
+    background-position center
+    background-size cover
+    background-repeat no-repeat
+    background-color $secondary_button_border_color
+    width 100px
+    height 70px
+    margin 0 10px 10px 0
+
+    &-progress
+      position absolute
+      background-color alpha(white, 0.3)
+      top 0
+      right 0
+      left 0
+      bottom 0
+      border-radius 5px
+      z-index 1
+      display flex
+      justify-content center
+      align-items center
+
+
+    &-remove
+      top -5px
+      right -5px
+      position absolute
+      background-color white
+      width 30px
+      height 30px
+      border-radius 50%
+      border 1px solid $line_color
+      display flex
+      align-items center
+      justify-content center
+      color $icon_color
+      cursor pointer
+
+      &:hover
+        color $active_element_color
+        border-color $active_element_color

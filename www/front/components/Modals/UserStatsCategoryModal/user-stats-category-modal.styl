@@ -1,0 +1,152 @@
+@import "../../../assets/style/params/colors.styl"
+@import "../../../assets/style/mixins.styl"
+
+.user-stats-category-modal
+  position relative
+
+  &__first-load
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    border-radius 10px
+    background-color white
+    display flex
+    justify-content center
+    padding 100px 0 0 0
+    z-index 15
+
+    &-loader
+      width 50px
+      height 50px
+
+  &__close
+    display none
+
+    @media screen and (min-width 768px)
+      display block
+      position fixed
+      width 60px
+      height 60px
+      z-index 1
+      color white
+      top 30px
+      right 30px
+      pointer-events auto
+      border-radius 50%
+      cursor pointer
+
+  &__container
+    display flex
+    flex-direction column
+    align-items center
+    pointer-events none
+
+    @media screen and (max-width 767px)
+      flex-grow 1
+      margin 0 0 100px 0
+
+  overflow-x hidden
+  pointer-events auto
+  height 560px
+  width 100%
+  max-width 500px
+  background-color white
+  border-radius 10px
+  display flex
+  flex-direction column
+
+  &__back-to-profile
+    display none
+    pointer-events auto
+
+    @media screen and (max-width 767px)
+      display block
+      width 100%
+
+  @media screen and (max-width 767px)
+    max-width none
+    border-radius 0
+    height auto
+    min-height 0
+    flex-grow 1
+
+  &__header
+    flex-shrink 0
+    min-height 70px
+    display flex
+    align-items center
+    padding 21px 15px 23px 15px
+    border-top-right-radius inherit
+    border-top-left-radius inherit
+    background-color white
+    position relative
+    z-index 10
+    border-bottom 1px solid $line_color
+
+  &__icon
+    width 30px
+    height 20px
+    display flex
+    align-items center
+    flex-shrink 0
+    margin 0 5px 0 0
+
+    & > img
+      width 30px
+      height 30px
+
+  &__name
+    font-size 20px
+    line-height 25px
+    flex-grow 1
+    min-width 0
+    overflow hidden
+    text-overflow ellipsis
+    margin 0 5px 0 0
+
+  &__see-all
+    color $active_element_color
+    font-size 12px
+    line-height 12px
+
+    & > a
+      color inherit
+
+  &__points
+    font-size 20px
+    line-height 25px
+    color $active_element_color
+
+  &__categories
+    overflow-y auto
+    overflow-x hidden
+    border-bottom-right-radius inherit
+    border-bottom-left-radius inherit
+    height 490px
+
+    @media screen and (max-width 767px)
+      overflow-y hidden
+      height 100%
+
+    &-no-result
+      padding 15px
+      font-size 14px
+      color $placeholder_color
+      justify-content center
+      text-align center
+      line-height 30px
+
+      &-link-to-catalog
+        color $active_element_color
+
+    &-container
+      flex-grow 1
+      overflow-x hidden
+      position relative
+      border-bottom-right-radius inherit
+      border-bottom-left-radius inherit
+
+  &__load-more
+    padding 15px

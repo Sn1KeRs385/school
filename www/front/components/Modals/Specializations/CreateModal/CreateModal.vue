@@ -1,0 +1,72 @@
+<template lang="pug">
+  AdjacentModalContainer(@close="close")
+    .create-modal__close(@click="close")
+      ModalCloseSVG
+    .create-modal__container
+      .create-modal
+        b-card(
+          bg-variant="light"
+          text-variant="black"
+        )
+          template(
+            v-slot:header
+          )
+            .main-content__header.text-center {{'Название'}}
+          b-card-body
+            b-form-input(
+              v-model="data.name"
+            )
+
+        .row.margin-top
+          b-button.col(
+            variant="warning"
+            @click="close"
+          ) {{ $t('CRUD_Button.close_button') }}
+          b-button.col(
+            variant="success"
+            @click="save"
+          ) {{ $t('CRUD_Button.save_button') }}
+
+</template>
+
+<script>
+import AdjacentModalContainer from '../../AdjacentModalContainer/AdjacentModalContainer.vue'
+import ModalCloseSVG from '../../../SVG/ModalCloseSVG.vue'
+import Button from '../../../Interactives/Controls/Button/Button.vue'
+import { save } from '../../../../plugins/api/api'
+const url = "specializations"
+
+export default {
+  components: {
+    AdjacentModalContainer,
+    ModalCloseSVG,
+    Button
+  },
+  props: {
+  },
+  data() {
+    this.$t.bind(this)
+    return {
+      data: {
+        name: null,
+      },
+    }
+  },
+  methods: {
+    close() {
+      this.$emit('close')
+    },
+    async save() {
+      const [item] = await Promise.all([
+        save(this.data, url),
+      ]);
+      this.$emit('reload')
+      this.$emit('close')
+    },
+  },
+}
+</script>
+
+<style lang="stylus" scoped>
+@import "create-modal.styl"
+</style>

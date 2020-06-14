@@ -1,0 +1,192 @@
+@import "../../assets/style/params/colors.styl"
+@import "../../assets/style/mixins.styl"
+
+.goal-card
+  border-radius 10px
+  background-color white
+
+  @media screen and (max-width 575px)
+    border-radius 0
+
+  &__header
+    height 70px
+    border-bottom 1px solid $line_color
+    display flex
+    align-items center
+    width 100%
+
+    &-user-card
+      display block
+      width 100%
+
+  &__body
+    padding 15px 0 0 0
+
+
+
+  &__title
+    color $primary_text_color
+    font-size 20px
+    line-height 25px
+    margin 0 0 5px 0
+    padding 0 15px
+    display block
+
+    &-section
+      color $placeholder_color
+      display flex
+      align-items center
+      font-size 14px
+      margin 0 0 14px 0
+      padding 0 15px
+
+      &-geo
+        margin 0 11px 0 0
+
+    &-settings
+      display inline-flex
+      align-items center
+      justify-content center
+      width 18px
+      height 16px
+      margin 0 4px 2px 0
+
+      & img
+        display block
+        width 20px
+        height 20px
+        opacity 0.3
+
+  &__media
+    &-info
+      background $media-files-background
+      color $primary_text_color
+      display flex
+      justify-content center
+      align-items center
+      font-size 14px
+      margin 0 0 14px 0
+      padding 10px 15px
+  &__subcategories
+    margin 12px 0 20px 0
+    word-break break-all
+    padding 0 15px
+
+  &__subcategory
+    display inline
+    color $active_element_color
+    line-height 25px
+    cursor pointer
+    margin 0 10px 0 0
+
+    &:before
+      content '#'
+
+  &__description
+    line-height 25px
+    margin 0 0 15px 0
+    padding 0 15px
+    word-wrap-break()
+
+    &-show-all
+      color $placeholder_color
+      margin 0 0 0 5px
+
+  &__info
+    display flex
+    font-size 14px
+    color $placeholder_color
+    align-items center
+    border-bottom 1px solid $line_color
+    padding 0 15px 19px 15px
+
+    &-time
+      margin 0 auto 0 0
+
+    &-points
+      margin 0 5px 2px 0
+      width 18px
+      height 18px
+
+      &>svg
+        width 100%
+        height 100%
+
+    &-likes
+      margin 0 7px 0 14px
+      width 17px
+      height 16px
+
+      &>svg
+        width 100%
+        height 100%
+        transition fill 0.15s, color 0.15s
+
+      &.like
+        color $like_color
+
+        &>svg
+          fill $like_color
+
+  &__remove-question
+    position absolute
+    bottom calc(70px)
+    right 0
+    padding 0 15px
+    max-width 290px
+    z-index 101
+    display flex
+    justify-content flex-end
+
+  &__footer
+    height 70px
+    display flex
+    padding 9px 0 0 0
+    position relative
+
+    &-item
+      flex-basis 25%
+      flex-grow 1
+      display flex
+      flex-direction column
+      align-items center
+
+      &-content
+        width auto
+        cursor pointer
+
+        &>svg
+          display block
+          margin 0 auto 4px auto
+          fill transparent
+          transition fill 0.15s, color 0.3s
+
+        &.like
+          color $like_color
+
+          &>svg
+            fill $like_color
+
+        &.disabled
+          pointer-events none
+          color $placeholder_color
+          opacity 0.5
+
+      &-text
+        font-size 12px
+        line-height 15px
+        color $placeholder_color
+        text-align center
+
+  &__completed
+    margin 20px 0 27px 0
+    padding 0 15px
+
+    .button__text
+      flex-grow unset
+
+    &-check-box
+      margin 0 0 0 11px
+      display flex
+      align-items center
+

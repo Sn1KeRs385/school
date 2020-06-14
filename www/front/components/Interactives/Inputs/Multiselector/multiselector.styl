@@ -1,0 +1,189 @@
+@import "../../../../assets/style/params/colors.styl"
+@import "../../../../assets/style/mixins.styl"
+
+.multiselector
+  position relative
+  height 50px
+
+  &__container
+    height auto
+
+  &__toggle
+    position relative
+    margin 0 15px 0 0
+    width 10px
+    height 10px
+    transform rotateZ(90deg)
+    cursor pointer
+    color #222
+    transition transform 0.25s
+    flex-shrink 0
+
+    &--is-open
+      transform rotateZ(270deg)
+
+    &>svg
+      position absolute
+      width 10px
+      height 10px
+
+  &__body
+    border-radius 5px
+    position absolute
+    min-height 50px
+    width 100%
+    z-index 1
+    cursor pointer
+    transition box-shadow 0.15s
+
+    &:hover
+      z-index 10
+
+    &--focus
+      box-shadow 0 0 0 2px alpha($icon_in_button_color, 0.04)
+      z-index 15
+
+    &--invalid
+
+      &^[1]--focus
+        box-shadow 0 0 0 2px alpha($error_color, 0.1) !important
+
+    &--disabled
+      background-color $primary_back_color
+
+  &__label
+
+    &-container
+      display block
+      margin 0 0 5px 0
+
+  &__wrapper
+    display block
+    width 100%
+
+  &__placeholder
+    background-color transparent
+    display flex
+    align-items center
+    padding 0 14px
+    flex-grow 1
+    height 48px
+    color $placeholder_color
+
+  &__input, &__value
+    background-color transparent
+    display flex
+    align-items center
+    padding 0 14px
+    flex-grow 1
+    height 48px
+    placeholder($placeholder_color)
+
+    &-container
+      height 50px
+      border-radius 5px
+      border 1px solid $border_input_color
+      background white
+      display flex
+      align-items center
+      cursor pointer
+      transition border-color 0.15s, border-radius 0.15s
+
+      &:hover
+        border-color $border_input_color_focus
+
+      &--focus
+        border-radius 5px 5px 0 0
+        border-color $border_input_color !important
+
+      &--invalid
+        border-color $error_color !important
+
+      &--disabled
+        border-color $border_input_color !important
+        cursor default
+
+        & .multiselector__toggle
+          color #AAAAAA
+
+    &-loader
+      width 30px
+      height 30px
+      margin 0 15px 0 0
+
+  &__input
+    placeholder($placeholder_color)
+
+  &__menu
+    background-color white
+    border-color inherit
+
+    &-container
+      max-height 150.6666px
+      background-color white
+      border-radius 0 0 5px 5px
+      border-left 1px solid $line_color
+      border-right 1px solid $line_color
+      border-bottom 1px solid $line_color
+      overflow-y auto
+      overflow-x hidden
+      transition border-color 0.15s
+
+      &--invalid
+        border-color $error_color !important
+
+      &-enter
+        opacity 0
+        transform translateY(10px)
+
+      &-enter-active
+        transition opacity 0.15s, transform 0.15s
+
+      &-enter-to
+        opacity 1
+        transform translateY(0)
+
+      &-leave
+        opacity 1
+        transform translateY(0)
+
+      &-leave-active
+        transition opacity 0.15s, transform 0.15s
+
+      &-leave-to
+        opacity 0
+        transform translateY(10px)
+
+    &-item
+      height 50px
+      border-bottom 1px solid $line_color
+      display flex
+      align-items center
+      padding 0 15px
+      cursor pointer
+
+      &--selected
+        color $active_element_color
+
+      &:hover
+        background-color $secondary_back_color
+
+      &:last-child
+        border none
+
+      &-check
+        width 10px
+        height 10px
+        margin 0 0 0 auto
+        position relative
+        flex-shrink 0
+
+        &>svg
+          position absolute
+          top 0
+          right 0
+
+
+  &__tags
+    max-width 100%
+    margin 10px 0 0 0
