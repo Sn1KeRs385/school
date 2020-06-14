@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\ApiModels\Apartment;
-use App\ApiModels\Resident;
-use App\ApiModels\Settlement;
 use App\Consts\Roles;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Users\RegisterRequest;
-use App\Http\Requests\Api\Users\UniqueCheckRequest;
-use App\Http\Requests\Api\Users\UpdateRequest;
-use App\Http\Resources\UserResource;
 use App\User;
 use Auth;
-use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends CRUDController
 {
@@ -62,6 +54,22 @@ class UserController extends CRUDController
                 $model->relationStudents()
                     ->attach($relation['student_id'], ['relation_id' => $relation['relation_id']]);
             }
+        }
+    }
+
+    public function hook_before_store(Request &$request)
+    {
+        if($request['password']){
+            $request['password'] = Hash::make($request['password']);
+        }
+    }
+
+    public function hook_before_update(Request &$request, $id)
+    {
+        if(!$request['password']){
+            $request['password'] = Auth::user()->password;
+        } else {
+            $request['password'] = Hash::make($request['password']);
         }
     }
 }

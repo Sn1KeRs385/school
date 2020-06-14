@@ -174,8 +174,6 @@ class CRUDController extends Controller implements iCRUDController
 
         $this->hook_after_update($object);
 
-        $this->runElasticIndexer($object);
-
         return getJson($object);
     }
 

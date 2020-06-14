@@ -15,15 +15,14 @@
       )
         ArrowSVG
     .profile-control__menu(v-if="isOpen")
-      NuxtLink(
-        class="profile-control__menu-item"
-        :to="localePath({ name: 'id-index-achievements', params: { id: getUser.id } })"
+      .profile-control__menu-item(
+        @click="openCreateModal"
       ) {{ getFullName }}
-        .profile-control__menu-my-profile {{ $t('header.profile.my-profile')}}
+        .profile-control__menu-my-profile Редактировать профиль
       NuxtLink(
         class="profile-control__menu-item"
         :to="localePath({ name: 'messages'})"
-      ) {{ 'Сообщение' }}
+      ) Сообщение
         .profile-control__menu-my-profile(
           v-if="messagesUnread > 0"
         ) {{ `Непрочитанные сообщения: ${messagesUnread}` }}
@@ -40,18 +39,29 @@ import ClosableByClickMixin from '../../../assets/js/vue-mixins/closable-by-clic
 import ArrowSVG from '../../SVG/ArrowSVG.vue'
 import ToolTip from '../../General/ToolTip/ToolTip.vue'
 import { unreadCounter } from '../../../plugins/api/message'
+import CreateModal from '../../Modals/Users/CreateModal/CreateModal'
 
 export default {
   components: {
     ArrowSVG,
     ToolTip,
   },
+  inject: ['setModal'],
   mixins: [ClosableByClickMixin('isOpen', 'changeIsOpen', 'getControl')],
   data() {
     return {
       isOpen: false,
       messagesUnread: 0,
       timer: null,
+      createModal: {
+        component: CreateModal,
+        props: {
+          userId: this.$store.state.auth.user.id,
+        },
+        events: {
+          close: this.setModal,
+        },
+      },
     }
   },
   mounted() {
@@ -97,6 +107,9 @@ export default {
       ])
 
       this.messagesUnread = data.data;
+    },
+    openCreateModal() {
+      this.setModal(this.createModal)
     },
   },
 }

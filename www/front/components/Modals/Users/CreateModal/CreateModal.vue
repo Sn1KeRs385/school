@@ -15,6 +15,7 @@
           b-card-body
             b-form-input(
               v-model="data.last_name"
+              :readonly="userId"
             )
 
         b-card.margin-top(
@@ -28,6 +29,7 @@
           b-card-body
             b-form-input(
               v-model="data.first_name"
+              :readonly="userId"
             )
 
         b-card.margin-top(
@@ -41,6 +43,7 @@
           b-card-body
             b-form-input(
               v-model="data.patronymic"
+              :readonly="userId"
             )
 
         b-card.margin-top(
@@ -95,6 +98,7 @@
           b-card-body
             b-form-input(
               v-model="data.login"
+              :readonly="userId"
             )
 
         b-card.margin-top(
@@ -126,6 +130,7 @@
             )
 
         b-card.margin-top(
+          v-if="!userId"
           bg-variant="light"
           text-variant="black"
         )
@@ -159,7 +164,7 @@
                   b-icon-trash
 
         b-card.margin-top(
-          v-if="isTeacher"
+          v-if="isTeacher && !userId"
           bg-variant="light"
           text-variant="black"
         )
@@ -193,7 +198,7 @@
                   b-icon-trash
 
         b-card.margin-top(
-          v-if="isParent"
+          v-if="isParent && !userId"
           bg-variant="light"
           text-variant="black"
         )
@@ -251,14 +256,20 @@
 import AdjacentModalContainer from '../../AdjacentModalContainer/AdjacentModalContainer.vue'
 import ModalCloseSVG from '../../../SVG/ModalCloseSVG.vue'
 import Button from '../../../Interactives/Controls/Button/Button.vue'
-import { save, all } from '../../../../plugins/api/api'
-let url = 'users';
+import { save, all, show, update } from '../../../../plugins/api/api'
+import { url } from '../../../../plugins/api/user'
 
 export default {
   components: {
     AdjacentModalContainer,
     ModalCloseSVG,
     Button
+  },
+  props: {
+    userId: {
+      type: Number,
+      default: null,
+    }
   },
   data() {
     this.$t.bind(this)
@@ -354,15 +365,33 @@ export default {
         value: item.id,
       }
     })
+    if(this.userId){
+      const [ userData ] = await Promise.all([
+        show(url, this.userId),
+      ])
+      this.data.last_name = userData.data.last_name;
+      this.data.first_name = userData.data.first_name;
+      this.data.patronymic = userData.data.patronymic;
+      this.data.email = userData.data.email;
+      this.data.phone = userData.data.phone;
+      this.data.birth_date = userData.data.birth_date;
+      this.data.login = userData.data.login;
+    }
   },
   methods: {
     close() {
       this.$emit('close')
     },
     async save() {
-      await Promise.all([
-        save(this.data, url),
-      ]);
+      if(this.userId){
+        await Promise.all([
+          update(this.data, url, this.userId),
+        ]);
+      } else {
+        await Promise.all([
+          save(this.data, url),
+        ]);
+      }
       this.$emit('reload')
       this.$emit('close')
     },
