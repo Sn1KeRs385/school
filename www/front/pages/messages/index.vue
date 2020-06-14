@@ -84,6 +84,7 @@ import { index } from '../../plugins/api/api'
 import { url, getChats, getMessages, sendMessage } from '../../plugins/api/message'
 
 export default {
+  middleware: 'authenticated',
   data(){
     return {
       timerReloadChats: null,

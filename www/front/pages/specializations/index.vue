@@ -17,6 +17,7 @@ const url = "specializations"
 
 export default {
   inject: ['setModal'],
+  middleware: 'authenticated',
   components: { Table },
   data() {
     return {
