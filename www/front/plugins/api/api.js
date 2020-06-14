@@ -1,7 +1,7 @@
 import { LifeCycle } from './request'
 
 export const index = async (params, url) => {
-  return LifeCycle('GET', url, { params })
+  return LifeCycle('GET', url, null, { params })
 }
 export const all = async (url, query = null) => {
   return LifeCycle('GET', `${url}?all&${query || ''}`)

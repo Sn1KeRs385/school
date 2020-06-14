@@ -1,10 +1,16 @@
 <template lang="pug">
   .container
-    b-button(
-      v-if="_openCreateModal"
-      variant="success"
-      @click="_openCreateModal"
-    ) {{ $t('CRUD_Button.create_button') }}
+    .row
+      .col-3
+        b-button(
+          v-if="_openCreateModal"
+          variant="success"
+          @click="_openCreateModal"
+        ) {{ $t('CRUD_Button.create_button') }}
+      .col-9
+        b-input(
+          placeholder="Поиск"
+        )
     .main-content
       b-table(
         :items="data"
@@ -29,6 +35,19 @@
             variant="danger"
           )
             b-icon-trash
+    .row.justify-content-center
+      .col-3
+        b-button(
+          variant="dark"
+          @click="changePageButton(false)"
+        )
+          b-icon-arrow-left-circle
+        span {{` ${currentPage}/${lastPage} `}}
+        b-button(
+          variant="dark"
+          @click="changePageButton(true)"
+        )
+          b-icon-arrow-right-circle
 </template>
 
 <script>
@@ -54,7 +73,28 @@ export default {
       type: Function,
 
     },
+    currentPage: {
+      type: Number,
+      default: 0,
+    },
+    lastPage: {
+      type: Number,
+      default: 0,
+    },
+    changePage: {
+      type: Function,
+      required: true,
+    }
   },
+  methods:{
+    changePageButton(next){
+      if(next){
+        this.changePage(this.currentPage + 1);
+      } else {
+        this.changePage(this.currentPage - 1);
+      }
+    }
+  }
 }
 </script>
 

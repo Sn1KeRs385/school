@@ -3,6 +3,9 @@
     :fields="fields"
     :data="data"
     :actions="actions"
+    :currentPage="page"
+    :lastPage="last_page"
+    :changePage="changePage"
     :_openCreateModal="openCreateModal"
   )
 </template>
@@ -12,7 +15,9 @@
 import { index } from '../../plugins/api/api'
 import Table from '../../components/Table/Table'
 import CreateModal from '../../components/Modals/Users/CreateModal/CreateModal'
-const url = "users"
+import { url } from '../../plugins/api/user'
+let default_page = 1;
+let default_per_page = 9;
 
 export default {
   inject: ['setModal'],
@@ -69,8 +74,8 @@ export default {
   async asyncData() {
     const [ data ] = await Promise.all([
       index({
-        page: 1,
-        records: 20
+        page: default_page,
+        per_page: default_per_page
       }, url),
     ])
     data.data.items.forEach(item => {
@@ -78,24 +83,42 @@ export default {
     })
     return {
       data: data.data.items,
+      page: default_page,
+      per_page: default_per_page,
+      last_page: data.data.meta.last_page,
     }
   },
   methods: {
     async loadIndex() {
       const [ data ] = await Promise.all([
         index({
-          page: 1,
-          records: 20
+          page: this.page,
+          per_page: this.per_page,
         }, url),
       ])
       data.data.items.forEach(item => {
         item.birth_date = (new Date(item.birth_date)).toLocaleDateString();
       })
       this.data = data.data.items;
+      this.last_page = data.data.meta.last_page;
     },
     openCreateModal() {
       this.setModal(this.createModal)
     },
+    changePage(page) {
+      const saveCurrentPage = this.page;
+      if(page < 1){
+        this.page = 1
+      } else if(page > this.last_page){
+        this.page = this.last_page
+      } else {
+        this.page = page
+      }
+
+      if(this.page !== saveCurrentPage){
+        this.loadIndex();
+      }
+    }
   }
 }
 </script>
