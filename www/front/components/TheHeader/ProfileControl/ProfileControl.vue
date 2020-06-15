@@ -52,7 +52,6 @@ export default {
     return {
       isOpen: false,
       messagesUnread: 0,
-      timer: null,
       createModal: {
         component: CreateModal,
         props: {
@@ -65,10 +64,7 @@ export default {
     }
   },
   mounted() {
-    this.timer = setInterval(this.loadUnreadMessages, 3000);
-  },
-  beforeDestroy() {
-    clearInterval(this.timer);
+    setTimeout(this.loadUnreadMessages, 1);
   },
   computed: {
     getControl() {
@@ -99,14 +95,12 @@ export default {
       })
     },
     async loadUnreadMessages() {
-      if(!this.$store.getters['auth/authorized']){
-        return;
-      }
       const [ data ] = await Promise.all([
         unreadCounter(),
       ])
 
       this.messagesUnread = data.data;
+      setTimeout(this.loadUnreadMessages, 2000);
     },
     openCreateModal() {
       this.setModal(this.createModal)

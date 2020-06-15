@@ -58,14 +58,10 @@ export default {
       isOpen: false,
       notifications: [],
       notificationUnread: 0,
-      timer: null,
     }
   },
   mounted() {
-    this.timer = setInterval(this.loadNotification, 3000);
-  },
-  beforeDestroy() {
-    clearInterval(this.timer);
+    setTimeout(this.loadNotification, 100);
   },
   computed: {
     getControl() {
@@ -98,10 +94,7 @@ export default {
     getLocaleDate(date){
       return (new Date(date)).toLocaleString()
     },
-    async loadNotification() {
-      if(!this.$store.getters['auth/authorized']){
-        return;
-      }
+    async loadNotification(setTimer = true) {
       const [ dataNotification ] = await Promise.all([
         all(url),
       ])
@@ -113,6 +106,9 @@ export default {
           unread++;
       })
       this.notificationUnread = unread;
+      if(setTimer) {
+        setTimeout(this.loadNotification, 2000);
+      }
     },
     goUrl(url) {
       this.$router.push(url)
@@ -121,7 +117,7 @@ export default {
       await Promise.all([
         del(id, url),
       ])
-      await this.loadNotification();
+      await this.loadNotification(false);
     },
   },
 }
