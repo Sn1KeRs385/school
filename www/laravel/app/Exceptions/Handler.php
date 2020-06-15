@@ -25,7 +25,6 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        BaseExternalException::class,
         BaseBusinessException::class,
     ];
 
@@ -62,7 +61,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        dd($exception);
         // Если ошибка связана с валидацией
         if ($exception instanceof ValidationException) {
             if ($request->ajax() || $request->wantsJson()) {
