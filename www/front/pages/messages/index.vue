@@ -87,8 +87,7 @@ export default {
   middleware: 'authenticated',
   data(){
     return {
-      timerReloadChats: null,
-      timerReloadMessages: null,
+      canTimer: true,
       openChatInfo: null,
       messages: [],
       messageToSend: null,
@@ -120,13 +119,10 @@ export default {
     }
   },
   created() {
-    this.timerReloadChats = setInterval(this.loadChats, 2000);
+    setTimeout(this.loadChats, 1);
   },
   beforeDestroy() {
-    clearInterval(this.timerReloadChats);
-    if(this.timerReloadMessages){
-      clearInterval(this.timerReloadMessages);
-    }
+    this.canTimer = false;
   },
   methods: {
     async loadChats() {
@@ -134,6 +130,9 @@ export default {
         getChats(),
       ])
       this.chats = data.data;
+      if(this.canTimer) {
+        setTimeout(this.loadChats, 2000);
+      }
     },
     async loadMessages(userId) {
       const [ data ] = await Promise.all([
@@ -142,8 +141,9 @@ export default {
       this.messages = data.data;
     },
     async loadMessagesFromTimer(){
-      if(this.openChatInfo){
+      if(this.openChatInfo && this.canTimer){
         await this.loadMessages(this.openChatInfo.id);
+        setTimeout(this.loadMessagesFromTimer, 2000);
       }
     },
     getLocaleDate(date){
@@ -152,12 +152,9 @@ export default {
     async openChat(user){
       await this.loadMessages(user.id);
       this.openChatInfo = user;
-      this.timerReloadMessages = setInterval(this.loadMessagesFromTimer, 2000);
+      setTimeout(this.loadMessagesFromTimer, 1);
     },
     closeChat(){
-      if(this.timerReloadMessages){
-        clearInterval(this.timerReloadMessages);
-      }
       this.openChatInfo = null;
       this.messages = [];
     },

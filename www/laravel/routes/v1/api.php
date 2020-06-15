@@ -41,6 +41,11 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
             Route::get('/sendMessage', 'MessageController@sendMessage');
         });
 
+        Route::group(['prefix' => 'classes'], function () {
+            Route::get('/getMembers', 'ClassController@getMembers');
+            Route::post('/setMembers', 'ClassController@setMembers');
+        });
+
         Route::prefix('user')->group(function () {
             Route::post('me', "UserController@me");
 

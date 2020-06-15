@@ -1,6 +1,5 @@
 <template lang="pug">
   .notification-control(
-    v-if="notifications.length > 0"
     @click="clickHeaderHandler"
     ref="control"
   )
@@ -18,6 +17,9 @@
         :class="{'notification-control__header-arrow--is-open': isOpen}"
       )
     .notification-control__menu(v-if="isOpen")
+      .notification-control__menu-item(
+        v-if="notifications.length === 0"
+      ) Уведомления отсуствуют
       .notification-control__menu-item(
         v-for="item in notifications"
         :class="{'.notification-control__menu-item__link': item.link, '.notification-control__menu-item__default': !item.link}"
@@ -56,14 +58,10 @@ export default {
       isOpen: false,
       notifications: [],
       notificationUnread: 0,
-      timer: null,
     }
   },
   mounted() {
-    this.timer = setInterval(this.loadNotification, 3000);
-  },
-  beforeDestroy() {
-    clearInterval(this.timer);
+    setTimeout(this.loadNotification, 100);
   },
   computed: {
     getControl() {
@@ -96,10 +94,7 @@ export default {
     getLocaleDate(date){
       return (new Date(date)).toLocaleString()
     },
-    async loadNotification() {
-      if(!this.$store.getters['auth/authorized']){
-        return;
-      }
+    async loadNotification(setTimer = true) {
       const [ dataNotification ] = await Promise.all([
         all(url),
       ])
@@ -111,6 +106,9 @@ export default {
           unread++;
       })
       this.notificationUnread = unread;
+      if(setTimer) {
+        setTimeout(this.loadNotification, 2000);
+      }
     },
     goUrl(url) {
       this.$router.push(url)
@@ -119,7 +117,7 @@ export default {
       await Promise.all([
         del(id, url),
       ])
-      await this.loadNotification();
+      await this.loadNotification(false);
     },
   },
 }

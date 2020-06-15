@@ -20,7 +20,8 @@
           v-slot:cell(actions)="data"
         )
           b-button(
-            v-if="actions.show"
+            v-if="actions.show && _showMethod"
+            @click="_showMethod(data.item)"
             variant="success"
           )
             b-icon-eye
@@ -68,6 +69,10 @@ export default {
     },
     _openCreateModal: {
       type: Function,
+    },
+    _showMethod: {
+      type: Function,
+
     },
     _deleteMethod: {
       type: Function,

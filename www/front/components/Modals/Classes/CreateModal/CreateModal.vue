@@ -19,6 +19,20 @@
               placeholder="Выбор направления обучения"
             )
 
+        b-card(
+          bg-variant="light"
+          text-variant="black"
+        )
+          template(
+            v-slot:header
+          )
+            .main-content__header.text-center {{'Название'}}
+          b-card-body
+            b-input(
+              v-model="data.name"
+              placeholder="Название класса"
+            )
+
         b-card.margin-top(
           bg-variant="light"
           text-variant="black"
@@ -77,6 +91,7 @@ export default {
     return {
       data: {
         specialization_id: null,
+        name: null,
         education_begin_at: null,
         education_end_at: null,
       },
