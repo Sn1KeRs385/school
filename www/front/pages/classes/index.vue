@@ -6,6 +6,7 @@
     :currentPage="page"
     :lastPage="last_page"
     :changePage="changePage"
+    :_showMethod="showMethod"
     :_deleteMethod="deleteMethod"
     :_openCreateModal="openCreateModal"
   )
@@ -41,6 +42,10 @@ export default {
           label: 'Направление',
         },
         {
+          key: 'name',
+          label: 'Название класса',
+        },
+        {
           key: 'education_begin_at',
           label: 'Дата начала обучения',
         },
@@ -54,7 +59,7 @@ export default {
         }
       ],
       actions:{
-        show: false,
+        show: true,
         edit: true,
         delete: true,
       }
@@ -96,6 +101,9 @@ export default {
     openCreateModal() {
       this.setModal(this.createModal)
     },
+    showMethod(item) {
+      this.$router.push(`classes/${item.id}`);
+    },
     async deleteMethod(item) {
       await Promise.all([
         del(item.id, url),
@@ -115,7 +123,7 @@ export default {
       if(this.page !== saveCurrentPage){
         this.loadIndex();
       }
-    }
+    },
   }
 }
 </script>

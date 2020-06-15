@@ -14,6 +14,7 @@ class Class_ extends Model
     protected $table = 'classes';
     public $fillable = [
         'specialization_id',
+        'name',
         'education_begin_at',
         'education_end_at'
     ];
