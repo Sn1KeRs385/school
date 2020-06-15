@@ -1,6 +1,5 @@
 <template lang="pug">
   .notification-control(
-    v-if="notifications.length > 0"
     @click="clickHeaderHandler"
     ref="control"
   )
@@ -18,6 +17,9 @@
         :class="{'notification-control__header-arrow--is-open': isOpen}"
       )
     .notification-control__menu(v-if="isOpen")
+      .notification-control__menu-item(
+        v-if="notifications.length === 0"
+      ) Уведомления отсуствуют
       .notification-control__menu-item(
         v-for="item in notifications"
         :class="{'.notification-control__menu-item__link': item.link, '.notification-control__menu-item__default': !item.link}"
