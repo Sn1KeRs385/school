@@ -26,6 +26,10 @@ class UserController extends CRUDController
             $query->whereHas('roles', function($query){
                $query->whereId(Roles::STUDENT);
             });
+        } elseif(request('type') === 'teachers'){
+            $query->whereHas('roles', function($query){
+                $query->whereId(Roles::TEACHER);
+            });
         }
     }
 

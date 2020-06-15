@@ -1,14 +1,28 @@
-.main-content
-  margin-top 50px
-  height 100%
-  background-color white
+.openListButton
+  width 100%
 
-  &__card
-    height 100%
 
-  &__header
-    height 100%
+.top-content
+  width 100%
+  display flex
+  flex-wrap wrap
 
-.delete-button
-  margin-right 5px
+  &-main-info
+    width 50%
 
+    @media screen and (max-width 991px)
+      width 100%
+
+  &-member-info
+    width 50%
+    display flex
+    flex-wrap wrap
+
+    @media screen and (max-width 991px)
+      width 100%
+
+    &-slot
+      width 50%
+
+      @media screen and (max-width 991px)
+        width 100%
