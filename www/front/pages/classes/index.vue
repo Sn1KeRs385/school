@@ -18,6 +18,7 @@ import { index, del } from '../../plugins/api/api'
 import Table from '../../components/Table/Table'
 import CreateModal from '../../components/Modals/Classes/CreateModal/CreateModal'
 import { url } from '../../plugins/api/class'
+import { DateStringToLocalDateString } from '../../plugins/datetime_formater'
 let default_page = 1;
 let default_per_page = 9;
 
@@ -73,8 +74,8 @@ export default {
       }, url),
     ])
     data.data.items.forEach(item => {
-      item.education_begin_at = (new Date(item.education_begin_at)).toLocaleDateString();
-      item.education_end_at = (new Date(item.education_end_at)).toLocaleDateString();
+      item.education_begin_at = DateStringToLocalDateString(item.education_begin_at);
+      item.education_end_at = DateStringToLocalDateString(item.education_end_at);
     })
     return {
       data: data.data.items,
@@ -92,8 +93,8 @@ export default {
         }, url),
       ])
       data.data.items.forEach(item => {
-        item.education_begin_at = (new Date(item.education_begin_at)).toLocaleDateString();
-        item.education_end_at = (new Date(item.education_end_at)).toLocaleDateString();
+        item.education_begin_at = DateStringToLocalDateString(item.education_begin_at);
+        item.education_end_at = DateStringToLocalDateString(item.education_end_at);
       })
       this.data = data.data.items;
       this.last_page = data.data.meta.last_page;

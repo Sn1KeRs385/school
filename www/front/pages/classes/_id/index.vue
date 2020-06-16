@@ -74,6 +74,7 @@
 import { show } from '../../../plugins/api/api'
 import { url } from '../../../plugins/api/class'
 import MembersModal from '../../../components/Modals/Classes/MembersModal/MembersModal'
+import { DateStringToLocalDateString } from '../../../plugins/datetime_formater'
 
 export default {
   inject: ['setModal'],
@@ -110,7 +111,7 @@ export default {
   },
   methods: {
     getLocaleDate(date){
-      return (new Date(date)).toLocaleDateString();
+      return DateStringToLocalDateString(date);
     },
     openMembersModal(type) {
       this.membersModal.props.type = type;

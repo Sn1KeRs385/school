@@ -80,7 +80,7 @@
 
 <script>
 
-import { index } from '../../plugins/api/api'
+  import { DateStringToLocalString } from '../../plugins/datetime_formater'
 import { url, getChats, getMessages, sendMessage } from '../../plugins/api/message'
 
 export default {
@@ -147,7 +147,7 @@ export default {
       }
     },
     getLocaleDate(date){
-      return (new Date(date)).toLocaleString();
+      return DateStringToLocalString(date);
     },
     async openChat(user){
       await this.loadMessages(user.id);

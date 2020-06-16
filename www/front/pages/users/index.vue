@@ -16,6 +16,7 @@ import { index } from '../../plugins/api/api'
 import Table from '../../components/Table/Table'
 import CreateModal from '../../components/Modals/Users/CreateModal/CreateModal'
 import { url } from '../../plugins/api/user'
+import { DateStringToLocalDateString } from '../../plugins/datetime_formater'
 let default_page = 1;
 let default_per_page = 9;
 
@@ -79,7 +80,7 @@ export default {
       }, url),
     ])
     data.data.items.forEach(item => {
-      item.birth_date = (new Date(item.birth_date)).toLocaleDateString();
+      item.birth_date = DateStringToLocalDateString(item.birth_date);
     })
     return {
       data: data.data.items,
@@ -97,7 +98,7 @@ export default {
         }, url),
       ])
       data.data.items.forEach(item => {
-        item.birth_date = (new Date(item.birth_date)).toLocaleDateString();
+        item.birth_date = DateStringToLocalDateString(item.birth_date);
       })
       this.data = data.data.items;
       this.last_page = data.data.meta.last_page;
