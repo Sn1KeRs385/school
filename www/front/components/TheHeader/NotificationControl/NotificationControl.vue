@@ -46,6 +46,7 @@ import ClosableByClickMixin from '../../../assets/js/vue-mixins/closable-by-clic
 import ToolTip from '../../General/ToolTip/ToolTip.vue'
 import { all, del } from '../../../plugins/api/api'
 import { readAll } from '../../../plugins/api/notification'
+import { DateStringToLocalString } from '../../../plugins/datetime_formater'
 const url = 'notifications'
 
 export default {
@@ -92,7 +93,7 @@ export default {
       }
     },
     getLocaleDate(date){
-      return (new Date(date)).toLocaleString()
+      return DateStringToLocalString(date);
     },
     async loadNotification(setTimer = true) {
       const [ dataNotification ] = await Promise.all([

@@ -37,6 +37,7 @@
 import PageLayout from '../components/General/PageLayout/PageLayout.vue'
 import CreateModal from '../components/Modals/News/CreateModal/CreateModal.vue'
 import { getNews, deleteNews } from '../plugins/api/news'
+import { DateStringToLocalString } from '../plugins/datetime_formater'
 export default {
   inject: ['setModal'],
   middleware: 'authenticated',
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     dateFormat(date) {
-      return (new Date(date)).toLocaleString()
+      return DateStringToLocalString(date);
     },
     nameFormat(creator) {
       if(creator && creator.last_name){
