@@ -14,3 +14,11 @@ export const setMembers = async (classId, type = null, params = null) => {
   }
   return LifeCycle('POST', `${url}/setMembers`, data )
 }
+
+export const getStudentsWithProgress = async (lessonId) => {
+  return LifeCycle('GET', `${url}/getStudentsWithProgress?lesson_id=${lessonId}`)
+}
+
+export const saveStudentsProgress = async (data) => {
+  return LifeCycle('POST', `${url}/saveStudentsProgress`, data)
+}

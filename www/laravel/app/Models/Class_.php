@@ -28,6 +28,10 @@ class Class_ extends Model
             ->withPivot('role_id');
     }
 
+    public function semesters(){
+        return $this->hasMany(ClassSemester::class);
+    }
+
     protected $table = 'classes';
     public $fillable = [
         'specialization_id',

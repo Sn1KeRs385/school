@@ -1,0 +1,70 @@
+@import "../../../../assets/style/params/colors.styl"
+@import "../../../../assets/style/mixins.styl"
+
+.create-modal
+  pointer-events auto
+  width 100%
+  max-width 900px
+  background-color white
+  border-radius 10px
+  display flex
+  flex-direction column
+  padding 51px 84px 80px 85px
+
+
+  .button__cancel
+    margin-top 10px
+
+  &__close
+    display block
+    position fixed
+    width 60px
+    height 60px
+    z-index 1
+    color white
+    top 30px
+    right 30px
+    pointer-events auto
+    border-radius 50%
+    cursor pointer
+
+    @media screen and (max-width 991px)
+      position absolute
+      left 50%
+      margin-left -30px
+      top 20px
+
+  &__container
+    display flex
+    flex-direction column
+    align-items center
+    pointer-events none
+
+
+  @media screen and (max-width 767px)
+    padding 31px 15px 60px 15px
+    max-width none
+    border-radius 0
+    height auto
+    min-height 0
+    flex-grow 1
+
+    &__close
+      display none
+
+    &__container
+      flex-grow 1
+      margin 0 0 100px 0
+
+.margin-top
+  margin-top 15px
+
+.editor
+  height 300px
+
+  &__card
+    height 500px
+
+
+.center
+  text-align center
