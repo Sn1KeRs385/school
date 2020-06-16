@@ -21,6 +21,9 @@ $apiResources = [
     'classes' => 'ClassController',
     'notifications' => 'NotificationController',
     'messages' => 'MessageController',
+    'schedule_types' => 'ScheduleTypeController',
+    'class_semesters' => 'ClassSemesterController',
+    'class_lessons' => 'ClassLessonController',
 ];
 
 Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiResources) {
@@ -44,6 +47,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
         Route::group(['prefix' => 'classes'], function () {
             Route::get('/getMembers', 'ClassController@getMembers');
             Route::post('/setMembers', 'ClassController@setMembers');
+            Route::get('/getStudentsWithProgress', 'ClassController@getStudentsWithProgress');
+            Route::post('/saveStudentsProgress', 'ClassController@saveStudentsProgress');
         });
 
         Route::prefix('user')->group(function () {
