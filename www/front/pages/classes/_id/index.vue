@@ -363,7 +363,6 @@ export default {
       const [ studentsData ] = await Promise.all([
         getStudentsWithProgress(lesson_id),
       ])
-      console.log(studentsData);
       this.students = studentsData.data.map(item => {
         return {
           full_name: `${item.last_name} ${item.first_name.substring(0, 1)}. ${item.patronymic ? (item.patronymic.substring(0, 1) + '.') : ''}`,
