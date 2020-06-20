@@ -51,6 +51,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['cors']], function() use($apiRe
             Route::post('/saveStudentsProgress', 'ClassController@saveStudentsProgress');
         });
 
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/getSchedule', 'UserController@getSchedule');
+        });
+
         Route::prefix('user')->group(function () {
             Route::post('me', "UserController@me");
 

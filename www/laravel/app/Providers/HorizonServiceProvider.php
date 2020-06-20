@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Helpers\ROLES;
+use App\Consts\Roles;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
@@ -35,7 +35,9 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewHorizon', function ($user) {
-            return $user->role_id === ROLES::IS_ADMIN;
+            return $user->role()
+                        ->whereIn('id', [Roles::DIRECTOR, Roles::DIRECTOR_ASSISTANT])
+                        ->exists();
         });
     }
 }

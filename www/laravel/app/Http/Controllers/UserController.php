@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Consts\Roles;
+use App\Models\ClassLesson;
 use App\User;
 use Auth;
 use DB;
@@ -75,5 +76,38 @@ class UserController extends CRUDController
         } else {
             $request['password'] = Hash::make($request['password']);
         }
+    }
+
+    public function hook_before_show(&$query, $id)
+    {
+        $query->with(['roles', 'classesWhereTeacher.specialization', 'classesWhereStudent.specialization']);
+    }
+
+    public function getSchedule(Request $request)
+    {
+        $dateStart = $request->input('start_at') . ' 00:00:00';
+        $dateEnd = $request->input('end_at') . ' 23:59:59';
+        $userId = $request->input('user_id');
+
+        $lessons = ClassLesson::query()
+            ->whereHas('classSemester', function($query) use($userId){
+               $query->whereHas('cLass', function($query) use($userId){
+                  $query->whereHas('members', function($query) use($userId){
+                     $query->where('id', $userId);
+                  });
+               });
+            })
+            ->where('lesson_begin_at', '>=', $dateStart)
+            ->where('lesson_begin_at', '<=', $dateEnd)
+            ->orderBy('lesson_begin_at')
+            ->with([
+                'classSemester.cLass.specialization',
+                'studentProgress' => function($query) use($userId){
+                    $query->where('user_id', $userId);
+                }
+            ])
+            ->get();
+
+        return getJson($lessons);
     }
 }
