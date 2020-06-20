@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Consts\Roles;
+use App\Models\Class_;
 use App\Models\ClassLesson;
 use App\Models\Message;
 use App\Models\Notification;
@@ -91,6 +93,21 @@ class User extends Authenticatable
     function relationParents(){
         return $this->belongsToMany(User::class, 'user_relations', 'student_id', 'parent_id')
             ->withPivot('relation_id');
+    }
+
+    function classes(){
+        return $this->belongsToMany(Class_::class, 'class_members', 'user_id', 'class_id')
+            ->withPivot('role_id');
+    }
+
+    function classesWhereTeacher(){
+        return $this->classes()
+            ->where('role_id', Roles::TEACHER);
+    }
+
+    function classesWhereStudent(){
+        return $this->classes()
+            ->where('role_id', Roles::STUDENT);
     }
 
     function myMessages(){

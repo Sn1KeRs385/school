@@ -6,6 +6,7 @@
     :currentPage="page"
     :lastPage="last_page"
     :changePage="changePage"
+    :_showMethod="showMethod"
     :_openCreateModal="openCreateModal"
   )
 </template>
@@ -105,6 +106,9 @@ export default {
     },
     openCreateModal() {
       this.setModal(this.createModal)
+    },
+    showMethod(item) {
+      this.$router.push(`users/${item.id}`);
     },
     changePage(page) {
       const saveCurrentPage = this.page;
