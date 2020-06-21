@@ -10,6 +10,7 @@
           text-variant="black"
         )
           template(
+            v-if="$store.getters['auth/isAdmin']"
             v-slot:header
           )
             .row
@@ -45,6 +46,7 @@
             @click="close"
           ) {{ $t('CRUD_Button.close_button') }}
           b-button.col(
+            v-if="$store.getters['auth/isAdmin']"
             variant="success"
             @click="save"
           ) {{ $t('CRUD_Button.save_button') }}
@@ -68,20 +70,25 @@ export default {
   },
   data() {
     this.$t.bind(this)
-    return {
-      selected: null,
-      users: [],
-      table: [],
-      fields: [
-        {
-          key: "text",
-          label: "ФИО"
-        },
+    let fields = [
+      {
+        key: "text",
+        label: "ФИО"
+      },
+    ];
+    if(this.$store.getters['auth/isAdmin']){
+      fields.push(
         {
           key: "action",
           label: "Действия"
         }
-      ],
+      );
+    }
+    return {
+      selected: null,
+      users: [],
+      table: [],
+      fields: fields,
     }
   },
   computed: {

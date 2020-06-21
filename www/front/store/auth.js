@@ -104,7 +104,16 @@ export const getters = {
   authorized: auth => {
     return !!auth.user
   },
-  hints: auth => {
-    return auth.user ? auth.user.viewed_hints : []
+  isAdmin: (auth) => {
+    return auth.user.roles.findIndex(item => item.id === 1 || item.id === 2) !== -1;
+  },
+  isTeacher: (auth) => {
+    return auth.user.roles.findIndex(item => item.id === 3) !== -1;
+  },
+  isStudent: (auth) => {
+    return auth.user.roles.findIndex(item => item.id === 4) !== -1;
+  },
+  isParent: (auth) => {
+    return auth.user.roles.findIndex(item => item.id === 5) !== -1;
   },
 }

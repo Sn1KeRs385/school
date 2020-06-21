@@ -1,6 +1,7 @@
 <template lang="pug">
   .container
     b-button(
+      v-if="$store.getters['auth/isAdmin']"
       variant="success"
       @click="openCreateModal"
     ) {{ $t('CRUD_Button.create_button') }}
@@ -9,6 +10,7 @@
     )
       .row.justify-content-end
         b-button.delete-button(
+          v-if="$store.getters['auth/isAdmin']"
           variant="danger"
           size="sm"
           @click="deleteMethod(data.id)"

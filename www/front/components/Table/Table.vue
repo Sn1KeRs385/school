@@ -3,7 +3,7 @@
     .row
       .col-3
         b-button(
-          v-if="_openCreateModal"
+          v-if="_openCreateModal && $store.getters['auth/isAdmin']"
           variant="success"
           @click="_openCreateModal"
         ) {{ $t('CRUD_Button.create_button') }}
@@ -12,32 +12,33 @@
           placeholder="Поиск"
         )
     .main-content
-      b-table(
-        :items="data"
-        :fields="fields"
-      )
-        template(
-          v-slot:cell(actions)="data"
+      .table-responsive
+        b-table(
+          :items="data"
+          :fields="fields"
         )
-          b-button(
-            v-if="actions.show && _showMethod"
-            @click="_showMethod(data.item)"
-            variant="success"
+          template(
+            v-slot:cell(actions)="data"
           )
-            b-icon-eye
-          b-button(
-            v-if="actions.edit"
-            variant="warning"
-          )
-            b-icon-pencil
-          b-button(
-            v-if="actions.delete && _deleteMethod"
-            @click="_deleteMethod(data.item)"
-            variant="danger"
-          )
-            b-icon-trash
+            b-button(
+              v-if="actions.show && _showMethod"
+              @click="_showMethod(data.item)"
+              variant="success"
+            )
+              b-icon-eye
+            b-button(
+              v-if="actions.edit && $store.getters['auth/isAdmin']"
+              variant="warning"
+            )
+              b-icon-pencil
+            b-button(
+              v-if="actions.delete && _deleteMethod && $store.getters['auth/isAdmin']"
+              @click="_deleteMethod(data.item)"
+              variant="danger"
+            )
+              b-icon-trash
     .row.justify-content-center
-      .col-3
+      .col-4
         b-button(
           variant="dark"
           @click="changePageButton(false)"
