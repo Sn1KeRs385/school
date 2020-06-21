@@ -52,6 +52,7 @@
 
             .journal_header_buttons
               b-button.journal_header_buttons(
+                v-if="$store.getters['auth/isAdmin']"
                 variant="success"
                 @click="openCreateSemesterModal"
               ) Добавить семестр
@@ -63,7 +64,9 @@
             @click="changeTab(item)"
           )
             .semester
-              b-card.semester_info
+              b-card(
+                :class="{ 'semester_info_full':  !$store.getters['auth/isAdmin'], 'semester_info': $store.getters['auth/isAdmin']}"
+              )
                 template(
                   v-slot:header
                 ) Информация о семестре
@@ -88,7 +91,9 @@
                   b {{ "Длительность урока: " }}
                   span {{ `${item.lesson_time} мин.`}}
 
-              b-card.semester_buttons
+              b-card.semester_buttons(
+                v-if="$store.getters['auth/isAdmin']"
+              )
                 template(
                   v-slot:header
                 ) Управление семестрами
@@ -109,6 +114,7 @@
                       b-button(
                         variant="success"
                         @click="openCreateLessonModal(item.id, item.schedule_type_id)"
+                        v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher']"
                       ) Создать занятие
                 .schedule_choose-lesson-card_container
                   .schedule_choose-lesson-card_container_choose_box
@@ -127,52 +133,65 @@
                   .schedule_choose-lesson-card_container_control_buttons
                     b-button.schedule_choose-lesson-card_container_control_buttons_button(
                       variant="warning"
-                      v-if="lessonSelected"
+                      v-if="lessonSelected && ($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'])"
                     ) Изменить дату и время
                     b-button.schedule_choose-lesson-card_container_control_buttons_button(
                       variant="danger"
-                      v-if="lessonSelected"
+                      v-if="lessonSelected && ($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'])"
                     ) Отменить занятие
 
-              b-card.progresses(
+              b-tabs.progresses(
                 v-if="lessonSelected"
               )
-                template(
-                  v-slot:header
+                b-tab(
+                  title="Оценки"
                 )
-                  .progresses-header
-                    .progresses-header-text Успеваемость
-                    .progresses-header-button
-                      b-button(
-                        variant="success"
-                        @click="saveStudentsProgresses"
-                      ) Сохранить
-
-                b-table.progresses-table(
-                  :items="students"
-                  :fields="progressesFields"
+                  b-button.progresses_save-button(
+                    variant="success"
+                    @click="saveStudentsProgresses"
+                    v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher']"
+                  ) Сохранить
+                  .table-responsive
+                    b-table.progresses-table(
+                      :items="students"
+                      :fields="progressesFields"
+                    )
+                      template(
+                        v-slot:cell(evaluation)="data"
+                      )
+                        b-input.progresses-table-evaluation_input(
+                          v-model="data.item.evaluation"
+                          :readonly="!$store.getters['auth/isAdmin'] && !$store.getters['auth/isTeacher']"
+                        )
+                      template(
+                        v-slot:cell(comment)="data"
+                      )
+                        b-textarea.progresses-table-comment_input(
+                          v-model="data.item.comment"
+                          no-resize
+                          :readonly="!$store.getters['auth/isAdmin'] && !$store.getters['auth/isTeacher']"
+                        )
+                      template(
+                        v-slot:cell(notification)="data"
+                      )
+                        b-checkbox(
+                          v-model="data.item.notification"
+                          :value="true"
+                          :unchecked-value="false"
+                        )
+                b-tab(
+                  title="Домашнее задание"
                 )
-                  template(
-                    v-slot:cell(evaluation)="data"
+                  b-button.progresses_homework-area(
+                    variant="success"
+                    @click="saveHomework"
+                    v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher']"
+                  ) Сохранить
+                  b-textarea.progresses(
+                    v-model="homework"
+                    no-resize
+                    :readonly="!$store.getters['auth/isAdmin'] && !$store.getters['auth/isTeacher']"
                   )
-                    b-input.progresses-table-evaluation_input(
-                      v-model="data.item.evaluation"
-                    )
-                  template(
-                    v-slot:cell(comment)="data"
-                  )
-                    b-textarea.progresses-table-comment_input(
-                      v-model="data.item.comment"
-                      no-resize
-                    )
-                  template(
-                    v-slot:cell(notification)="data"
-                  )
-                    b-checkbox(
-                      v-model="data.item.notification"
-                      :value="true"
-                      :unchecked-value="false"
-                    )
 
 
 
@@ -181,8 +200,7 @@
 </template>
 
 <script>
-
-import { show, all } from '../../../plugins/api/api'
+import { show, all, update } from '../../../plugins/api/api'
 import { url, getStudentsWithProgress, saveStudentsProgress } from '../../../plugins/api/class'
 import MembersModal from '../../../components/Modals/Classes/MembersModal/MembersModal'
 import CreateSemesterModal from '../../../components/Modals/Classes/CreateSemesterModal/CreateSemesterModal'
@@ -198,6 +216,32 @@ export default {
     CreateLessonModal
   },
   data() {
+    let progressFields = [
+      {
+        key: "full_name",
+        label: "ФИО"
+      },
+      {
+        key: "evaluation",
+        label: "Оценка"
+      },
+    ];
+    if(this.$store.getters['auth/isAdmin'] || this.$store.getters['auth/isTeacher'] || this.$store.getters['auth/isTeacher']){
+      progressFields.push(
+        {
+          key: "comment",
+          label: "Замечания"
+        }
+      )
+    }
+    if(this.$store.getters['auth/isAdmin'] || this.$store.getters['auth/isTeacher']){
+      progressFields.push(
+        {
+          key: "notification",
+          label: "Уведомить"
+        }
+      )
+    }
     return {
       lessonSelected: null,
       membersModal: {
@@ -238,24 +282,7 @@ export default {
           }
         },
       },
-      progressesFields: [
-        {
-          key: "full_name",
-          label: "ФИО"
-        },
-        {
-          key: "evaluation",
-          label: "Оценка"
-        },
-        {
-          key: "comment",
-          label: "Замечания"
-        },
-        {
-          key: "notification",
-          label: "Уведомить"
-        }
-      ],
+      progressesFields: progressFields,
     }
   },
   async asyncData(params) {
@@ -278,6 +305,7 @@ export default {
         ])
       }
     }
+    console.log(studentsData);
     return {
       id: id,
       Class: classData.data,
@@ -297,7 +325,8 @@ export default {
           comment: item.progress.comment,
           notification: false,
         }
-      })
+      }),
+      homework: lessonData.data[0].homework,
     }
   },
   mounted() {
@@ -350,15 +379,18 @@ export default {
       this.lessons = lessonData.data.map(item => {
         return {
           id: item.id,
-          lesson_begin_at: DateStringToLocalString(item.lesson_begin_at)
+          lesson_begin_at: DateStringToLocalString(item.lesson_begin_at),
+          homework: item.homework,
         }
       })
       if(this.lessons.length > 0){
         this.lessonSelected = this.lessons[0].id;
         await this.reloadStudents(this.lessons[0].id);
+        await this.reloadHomework(this.lessons[0].id);
       }
     },
     async reloadStudents(lesson_id){
+      await this.reloadHomework(lesson_id);
       this.students = [];
       const [ studentsData ] = await Promise.all([
         getStudentsWithProgress(lesson_id),
@@ -374,8 +406,19 @@ export default {
         }
       })
     },
+    async reloadHomework(lesson_id){
+      const [ lessonData ] = await Promise.all([
+        show('class_lessons', lesson_id),
+      ])
+      this.homework = lessonData.data.homework;
+    },
     saveStudentsProgresses(){
       saveStudentsProgress({data: this.students});
+    },
+    async saveHomework(){
+      await Promise.all([
+        update({homework: this.homework}, 'class_lessons', this.lessonSelected),
+      ])
     }
   }
 }

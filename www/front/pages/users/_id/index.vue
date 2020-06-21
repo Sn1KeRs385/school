@@ -29,7 +29,32 @@
                     li(
                       v-for="item in user.roles"
                     ) {{ item.name }}
-            .user-info__classes
+                div(
+                  v-if="user.relation_parents.length > 0"
+                )
+                  b {{ "Родственники: " }}
+                  ul
+                    li(
+                      v-for="item in user.relation_parents"
+                    )
+                      a(
+                        :href="`/users/${item.id}`"
+                      ) {{ `${item.last_name} ${item.first_name} ${item.patronymic || ''}`  }}
+                div(
+                  v-if="user.relation_students.length > 0"
+                )
+                  b {{ "Дети: " }}
+                  ul
+                    li(
+                      v-for="item in user.relation_students"
+                    )
+                      a(
+                        :href="`/users/${item.id}`"
+                      ) {{ `${item.last_name} ${item.first_name} ${patronymic || ''}`  }}
+
+            .user-info__classes(
+              v-if="user.classes_where_teacher.length > 0 || user.classes_where_student.length > 0"
+            )
               b-card
                 div(
                   v-if="user.classes_where_teacher.length > 0"
@@ -55,6 +80,7 @@
                       ) {{ getClassLink(item) }}
 
       b-tab(
+        v-if="($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent'] || $store.getters['auth/getUser'].id == user_id)  && user && user.roles.findIndex(item => item.id === 4) !== -1"
         title="Дневник"
       )
         b-card
@@ -83,7 +109,9 @@
                 th Класс
                 th Домашнее задание
                 th Оценка
-                th Комментарий
+                th(
+                  v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
+                ) Комментарий
             tbody
               tr(
                 v-for="item in schedule.options"
@@ -96,7 +124,47 @@
                   ) {{ getClassLink(item.class_semester.c_lass) }}
                 td {{ item.homework || "" }}
                 td {{ item.student_progress ? item.student_progress.evaluation : "" }}
-                td {{ item.student_progress ? item.student_progress.comment : "" }}
+                td(
+                  v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
+                ) {{ item.student_progress ? item.student_progress.comment : "" }}
+      b-tab(
+        v-if="($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher']) && user && user.roles.findIndex(item => item.id === 3) !== -1"
+        title="Расписание"
+      )
+        b-card
+          div
+            b {{ "Дата начала " }}
+            b-form-datepicker(
+              v-model="scheduleTeacher.start_at"
+            )
+          div
+            b {{ "Дата окончания " }}
+            b-form-datepicker(
+              v-model="scheduleTeacher.end_at"
+            )
+          br
+          b-button(
+            variant="success"
+            @click="loadScheduleTeacher"
+          ) Обновить
+
+        .table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th Дата
+                th Время
+                th Класс
+            tbody
+              tr(
+                v-for="item in scheduleTeacher.options"
+              )
+                th {{ convertToDate(item.lesson_begin_at) }}
+                td {{ convertToTime(item.lesson_begin_at) }}
+                td
+                  a(
+                    :href="`/classes/${item.class_semester.c_lass.id}`"
+                  ) {{ getClassLink(item.class_semester.c_lass) }}
 
 
 </template>
@@ -123,6 +191,11 @@ export default {
         start_at: `${weekStart.getFullYear()}-${weekStart.getMonth()+1}-${weekStart.getDate()}`,
         end_at: `${weekEnd.getFullYear()}-${weekEnd.getMonth()+1}-${weekEnd.getDate()}`,
         options: [],
+      },
+      scheduleTeacher: {
+        start_at: `${weekStart.getFullYear()}-${weekStart.getMonth()+1}-${weekStart.getDate()}`,
+        end_at: `${weekEnd.getFullYear()}-${weekEnd.getMonth()+1}-${weekEnd.getDate()}`,
+        options: [],
       }
     }
   },
@@ -139,6 +212,7 @@ export default {
   },
   mounted() {
     this.loadSchedule();
+    this.loadScheduleTeacher();
   },
   methods: {
     convertToDate(date) {
@@ -157,6 +231,12 @@ export default {
         getSchedule(this.schedule.start_at, this.schedule.end_at, this.user_id)
       ])
       this.schedule.options = schedule.data;
+    },
+    async loadScheduleTeacher() {
+      let [schedule] = await Promise.all([
+        getSchedule(this.scheduleTeacher.start_at, this.scheduleTeacher.end_at, this.user_id)
+      ])
+      this.scheduleTeacher.options = schedule.data;
     }
   }
 }

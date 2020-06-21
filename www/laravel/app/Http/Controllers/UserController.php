@@ -16,9 +16,37 @@ class UserController extends CRUDController
     public function me()
     {
         $user = Auth::user();
-
+        $user->roles;
 
         return getJson($user);
+    }
+
+    public function hook_before_index(&$query)
+    {
+        $user = Auth::user();
+        $isTeacher = $user->roles()
+            ->whereIn('role_id', [Roles::TEACHER])
+            ->exists();
+        if($isTeacher){
+            $classId = \Illuminate\Support\Facades\DB::table('class_members')
+                ->where('user_id', $user->id)
+                ->where('role_id', Roles::TEACHER)
+                ->pluck('class_id');
+            $usersId = \Illuminate\Support\Facades\DB::table('class_members')
+                ->whereIn('class_id', $classId)
+                ->where('role_id', Roles::STUDENT)
+                ->pluck('user_id');
+            $query->whereIn('id', $usersId);
+        }
+        $isParent = $user->roles()
+            ->whereIn('role_id', [Roles::PARENT])
+            ->exists();
+        if($isParent){
+            $usersId = \Illuminate\Support\Facades\DB::table('user_relations')
+                ->where('parent_id', $user->id)
+                ->pluck('student_id');
+            $query->whereIn('id', $usersId);
+        }
     }
 
     public function hook_before_all(&$query)
@@ -80,7 +108,7 @@ class UserController extends CRUDController
 
     public function hook_before_show(&$query, $id)
     {
-        $query->with(['roles', 'classesWhereTeacher.specialization', 'classesWhereStudent.specialization']);
+        $query->with(['roles', 'classesWhereTeacher.specialization', 'classesWhereStudent.specialization', 'relationStudents', 'relationParents']);
     }
 
     public function getSchedule(Request $request)

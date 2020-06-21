@@ -46,19 +46,30 @@ export default {
       return this.$refs.control
     },
     getUser() {
-      console.log(this.$store.state.auth.user);
       return this.$store.state.auth.user
     },
     getFullName() {
       return `${this.getUser.first_name} ${this.getUser.last_name}` || this.$t('header.no-name-label')
     },
     mainMenu() {
-      return [
+      let menu = [
         {name:"Объявления", link:'/'},
-        {name:"Пользователи", link:'/users'},
-        {name:"Классы", link:'/classes'},
-        {name:"Направления подготовки", link:'/specializations'},
+        {name:"Мой профиль", link:`/users/${this.getUser.id}`},
       ];
+      if(this.$store.getters['auth/isAdmin']){
+        menu.push({name:"Пользователи", link:'/users'});
+        menu.push({name:"Классы", link:'/classes'});
+        menu.push({name:"Направления подготовки", link:'/specializations'});
+      } else if(this.$store.getters['auth/isTeacher']){
+        menu.push({name:"Ученики", link:'/users'});
+        menu.push({name:"Мои классы", link:'/classes'});
+      } else if(this.$store.getters['auth/isStudent']){
+        menu.push({name:"Мои классы", link:'/classes'});
+      } else if(this.$store.getters['auth/isParent']){
+        menu.push({name:"Мои дети", link:'/users'});
+        menu.push({name:"Классы детей", link:'/classes'});
+      }
+      return menu;
     }
   },
   methods: {

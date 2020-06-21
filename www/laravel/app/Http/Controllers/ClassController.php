@@ -9,6 +9,7 @@ use App\Models\StudentProgress;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClassController extends CRUDController
 {
@@ -78,9 +79,21 @@ class ClassController extends CRUDController
         if(!$lesson){
             return getJson();
         }
+        $user = Auth::user();
         $students = $lesson->classSemester
             ->cLass
-            ->students;
+            ->students();
+        $isTeacherOrAdmin = $user->roles()
+            ->whereIn('role_id', [Roles::TEACHER, Roles::DIRECTOR_ASSISTANT, Roles::DIRECTOR])
+            ->exists();
+        if(!$isTeacherOrAdmin){
+            $usersId = DB::table('user_relations')
+                ->where('parent_id', $user->id)
+                ->pluck('student_id');
+            $usersId[] = $user->id;
+            $students->whereIn('id', $usersId);
+        }
+        $students = $students->get();
         $students->each(function($item) use($lesson){
            $item->progress = $item->progressInLesson($lesson);
         });
