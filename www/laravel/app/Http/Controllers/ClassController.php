@@ -18,6 +18,41 @@ class ClassController extends CRUDController
     public function hook_before_index(&$query)
     {
         $query->with(['specialization']);
+
+        $user = Auth::user();
+        $isTeacher = $user->roles()
+            ->whereIn('role_id', [Roles::TEACHER])
+            ->exists();
+        if($isTeacher){
+            $classId = \Illuminate\Support\Facades\DB::table('class_members')
+                ->where('user_id', $user->id)
+                ->where('role_id', Roles::TEACHER)
+                ->pluck('class_id');
+            $query->whereIn('id', $classId);
+        }
+        $isParent = $user->roles()
+            ->whereIn('role_id', [Roles::PARENT])
+            ->exists();
+        if($isParent){
+            $usersId = \Illuminate\Support\Facades\DB::table('user_relations')
+                ->where('parent_id', $user->id)
+                ->pluck('student_id');
+            $classId = \Illuminate\Support\Facades\DB::table('class_members')
+                ->whereIn('user_id', $usersId)
+                ->where('role_id', Roles::STUDENT)
+                ->pluck('class_id');
+            $query->whereIn('id', $classId);
+        }
+        $isStudent = $user->roles()
+            ->whereIn('role_id', [Roles::STUDENT])
+            ->exists();
+        if($isStudent){
+            $classId = \Illuminate\Support\Facades\DB::table('class_members')
+                ->where('user_id', $user->id)
+                ->where('role_id', Roles::STUDENT)
+                ->pluck('class_id');
+            $query->whereIn('id', $classId);
+        }
     }
 
     public function hook_before_show(&$query, $id)
