@@ -9,6 +9,7 @@
     :_showMethod="showMethod"
     :_deleteMethod="deleteMethod"
     :_openCreateModal="openCreateModal"
+    :reportsLink="'classes/reports'"
   )
 </template>
 

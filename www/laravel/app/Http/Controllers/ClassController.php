@@ -180,4 +180,75 @@ class ClassController extends CRUDController
         }
         return getJson();
     }
+
+    public function getReport(Request $request) {
+        $classId = $request->input('class_id');
+        $dateStart = $request->input('start_at') . ' 00:00:00';
+        $dateEnd = $request->input('end_at') . ' 23:59:59';
+
+        $lessons = ClassLesson::query()
+            ->whereHas('classSemester', function($query) use($classId){
+                $query->whereHas('cLass', function($query) use($classId){
+                   $query->where('id', $classId);
+                });
+            })
+            ->where('lesson_begin_at', '>=', $dateStart)
+            ->where('lesson_begin_at', '<=', $dateEnd)
+            ->orderBy('lesson_begin_at')
+            ->get();
+
+        $students = (Class_::find($classId))->students();
+        $user = Auth::user();
+        $isParent = $user->roles()
+            ->whereIn('role_id', [Roles::PARENT])
+            ->exists();
+        if($isParent){
+            $usersId = \Illuminate\Support\Facades\DB::table('user_relations')
+                ->where('parent_id', $user->id)
+                ->pluck('student_id');
+            $students->whereIn('id', $usersId);
+        }
+        $isStudent = $user->roles()
+            ->whereIn('role_id', [Roles::STUDENT])
+            ->exists();
+        if($isStudent) {
+            $students->where('id', $user->id);
+        }
+        $students = $students->orderBy('last_name')
+            ->orderBy('first_name')
+            ->orderBy('patronymic')
+            ->get();
+
+        $students->each(function($student) use($lessons){
+            $progresses = [];
+            $scoreCount = 0;
+            $finalScore = 0;
+            foreach($lessons as $lesson){
+                $progress = $student->progressInLesson($lesson);
+                if($progress->evaluation && in_array($progress->evaluation, ["1", "2", "3", "4", "5"])){
+                    $finalScore = $finalScore + intval($progress->evaluation);
+                    $scoreCount++;
+                }
+                $progresses[] = $progress;
+            }
+            $finalScore = round(floatval($finalScore) / $scoreCount, 2);
+            $student->final_score = $finalScore;
+            $student->progresses = $progresses;
+        });
+
+        return getJson($students);
+    }
+
+    public function getClassReport(Request $request)
+    {
+        $date = $request->input('date') . ' 00:00:00';
+        $classes = Class_::query()
+            ->where(function($query) use($date){
+                $query->where('education_begin_at', '<=', $date)
+                    ->where('education_end_at', '>=', $date);
+            })
+            ->with(['students', 'teachers'])
+            ->get();
+        return getJson($classes);
+    }
 }

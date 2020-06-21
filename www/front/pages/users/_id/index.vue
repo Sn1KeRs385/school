@@ -8,6 +8,9 @@
           .user-info
             .user-info__main-info
               b-card
+                b-button.user-info__main-info__send-message(
+                  variant="primary"
+                ) Написать сообщение
                 div
                   b {{ "ФИО: " }}
                   span {{ user.fio }}
@@ -50,7 +53,7 @@
                     )
                       a(
                         :href="`/users/${item.id}`"
-                      ) {{ `${item.last_name} ${item.first_name} ${patronymic || ''}`  }}
+                      ) {{ `${item.last_name} ${item.first_name} ${item.patronymic || ''}`  }}
 
             .user-info__classes(
               v-if="user.classes_where_teacher.length > 0 || user.classes_where_student.length > 0"
@@ -80,7 +83,7 @@
                       ) {{ getClassLink(item) }}
 
       b-tab(
-        v-if="($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent'] || $store.getters['auth/getUser'].id == user_id)  && user && user.roles.findIndex(item => item.id === 4) !== -1"
+        v-if="($store.getters['auth/isAdmin'] || $store.getters['auth/isParent'] || $store.getters['auth/getUser'].id == user_id)  && user && user.roles.findIndex(item => item.id === 4) !== -1"
         title="Дневник"
       )
         b-card
@@ -99,34 +102,35 @@
             variant="success"
             @click="loadSchedule"
           ) Обновить
-
-        .table-responsive
-          table.table.table-bordered
-            thead
-              tr
-                th Дата
-                th Время
-                th Класс
-                th Домашнее задание
-                th Оценка
-                th(
-                  v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
-                ) Комментарий
-            tbody
-              tr(
-                v-for="item in schedule.options"
-              )
-                th {{ convertToDate(item.lesson_begin_at) }}
-                td {{ convertToTime(item.lesson_begin_at) }}
-                td
-                  a(
-                    :href="`/classes/${item.class_semester.c_lass.id}`"
-                  ) {{ getClassLink(item.class_semester.c_lass) }}
-                td {{ item.homework || "" }}
-                td {{ item.student_progress ? item.student_progress.evaluation : "" }}
-                td(
-                  v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
-                ) {{ item.student_progress ? item.student_progress.comment : "" }}
+          br
+          br
+          .table-responsive
+            table.table.table-bordered
+              thead
+                tr
+                  th Дата
+                  th Время
+                  th Класс
+                  th Домашнее задание
+                  th Оценка
+                  th(
+                    v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
+                  ) Комментарий
+              tbody
+                tr(
+                  v-for="item in schedule.options"
+                )
+                  th {{ convertToDate(item.lesson_begin_at) }}
+                  td {{ convertToTime(item.lesson_begin_at) }}
+                  td
+                    a(
+                      :href="`/classes/${item.class_semester.c_lass.id}`"
+                    ) {{ getClassLink(item.class_semester.c_lass) }}
+                  td {{ item.homework || "" }}
+                  td {{ item.student_progress ? item.student_progress.evaluation : "" }}
+                  td(
+                    v-if="$store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher'] || $store.getters['auth/isParent']"
+                  ) {{ item.student_progress ? item.student_progress.comment : "" }}
       b-tab(
         v-if="($store.getters['auth/isAdmin'] || $store.getters['auth/isTeacher']) && user && user.roles.findIndex(item => item.id === 3) !== -1"
         title="Расписание"

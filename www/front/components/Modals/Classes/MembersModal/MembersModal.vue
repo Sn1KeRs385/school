@@ -39,6 +39,13 @@
                 )
                   b-icon-trash
 
+              template(
+                v-slot:cell(text)="data"
+              )
+                a(
+                  href="#"
+                ) {{data.item.text}}
+
 
         .row.margin-top
           b-button.col(

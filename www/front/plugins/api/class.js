@@ -22,3 +22,11 @@ export const getStudentsWithProgress = async (lessonId) => {
 export const saveStudentsProgress = async (data) => {
   return LifeCycle('POST', `${url}/saveStudentsProgress`, data)
 }
+
+export const getReport = async (start_at, end_at, class_id) => {
+  return LifeCycle('GET', `${url}/getReport?start_at=${start_at}&end_at=${end_at}&class_id=${class_id}`)
+}
+
+export const getClassReport = async (date) => {
+  return LifeCycle('GET', `${url}/getClassReport?date=${date}`)
+}

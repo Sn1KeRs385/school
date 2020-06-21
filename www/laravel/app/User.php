@@ -129,15 +129,16 @@ class User extends Authenticatable
     function progressInLesson(ClassLesson $lesson){
         $progress = $this->progresses()
             ->where('class_lesson_id', $lesson->id)
+            ->with(['lesson'])
             ->first();
-        
+
         if(!$progress){
-            $progress = [
-                'user_id' => $this->id,
-                'class_lesson_id' => $lesson->id,
-                'evaluation' => null,
-                'comment' => null,
-            ];
+            $progress = new \stdClass();
+            $progress->user_id = $this->id;
+            $progress->class_lesson_id = $lesson->id;
+            $progress->evaluation = null;
+            $progress->comment = null;
+            $progress->lesson = $lesson;
         }
         return $progress;
     }
