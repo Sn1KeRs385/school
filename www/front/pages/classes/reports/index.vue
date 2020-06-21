@@ -17,6 +17,10 @@
               variant="success"
               @click="loadClassReport"
             ) Показать
+            b-button(
+              variant="warning"
+              v-if="classReport.data.length > 0"
+            ) Сохранить в Word
             br
             b-card(
               style="margin-top: 40px;"
