@@ -59,6 +59,53 @@
 
         b-tabs
           b-tab(
+            title="Успеваемость"
+          )
+            div
+              b {{ "Дата начала отчета" }}
+              b-form-datepicker(
+                v-model="report.start_at"
+              )
+            div
+              b {{ "Дата окончания отчета" }}
+              b-form-datepicker(
+                v-model="report.end_at"
+              )
+            br
+            b-button(
+              variant="success"
+              @click="loadReport"
+            ) Показать
+            b-button(
+              style="margin-left:10px"
+              variant="warning"
+              v-if="report.options.length > 0"
+            ) Экспорт в Excel
+            br
+            br
+            .table-responsive
+              table.table.table-bordered(
+                v-if="report.options.length > 0"
+              )
+                thead
+                  tr
+                    th ФИО
+                    th(
+                      v-for="item in report.options[0].progresses"
+                      v-if="item.lesson"
+                    ) {{ getLocaleDateTime(item.lesson.lesson_begin_at) }}
+                    th Средняя оценка
+                tbody
+                  tr(
+                    v-for="student in report.options"
+                  )
+                    th {{`${student.last_name} ${student.first_name.substring(0, 1)}. ${student.patronymic ? (student.patronymic.substring(0, 1) + '.') : ''}`}}
+                    th(
+                      v-for="progress in student.progresses"
+                    ) {{ progress.evaluation }}
+                    th {{ student.final_score }}
+
+          b-tab(
             v-for="(item, index) in semesters"
             :title="(index + 1) + ' семестр'"
             @click="changeTab(item)"
@@ -201,7 +248,7 @@
 
 <script>
 import { show, all, update } from '../../../plugins/api/api'
-import { url, getStudentsWithProgress, saveStudentsProgress } from '../../../plugins/api/class'
+import { url, getStudentsWithProgress, saveStudentsProgress, getReport } from '../../../plugins/api/class'
 import MembersModal from '../../../components/Modals/Classes/MembersModal/MembersModal'
 import CreateSemesterModal from '../../../components/Modals/Classes/CreateSemesterModal/CreateSemesterModal'
 import CreateLessonModal from '../../../components/Modals/Classes/CreateLessonModal/CreateLessonModal'
@@ -244,6 +291,11 @@ export default {
     }
     return {
       lessonSelected: null,
+      report: {
+        start_at: null,
+        end_at: null,
+        options: [],
+      },
       membersModal: {
         component: MembersModal,
         props:{
@@ -340,6 +392,9 @@ export default {
     getLocaleDate(date){
       return DateStringToLocalDateString(date);
     },
+    getLocaleDateTime(date){
+      return DateStringToLocalString(date);
+    },
     openMembersModal(type) {
       this.membersModal.props.type = type;
       this.membersModal.props.id = this.id;
@@ -418,7 +473,13 @@ export default {
       await Promise.all([
         update({homework: this.homework}, 'class_lessons', this.lessonSelected),
       ])
-    }
+    },
+    async loadReport(){
+      let [report] = await Promise.all([
+        getReport(this.report.start_at, this.report.end_at, this.id)
+      ])
+      this.report.options = report.data;
+    },
   }
 }
 </script>

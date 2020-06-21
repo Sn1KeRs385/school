@@ -7,6 +7,12 @@
           variant="success"
           @click="_openCreateModal"
         ) {{ $t('CRUD_Button.create_button') }}
+        b-button(
+          style="margin-left: 20px;"
+          v-if="reportsLink && $store.getters['auth/isAdmin']"
+          variant="warning"
+          @click="redirectToReports"
+        ) Отчеты
       .col-9
         b-input(
           placeholder="Поиск"
@@ -90,6 +96,9 @@ export default {
     changePage: {
       type: Function,
       required: true,
+    },
+    reportsLink: {
+      type: String
     }
   },
   methods:{
@@ -98,6 +107,11 @@ export default {
         this.changePage(this.currentPage + 1);
       } else {
         this.changePage(this.currentPage - 1);
+      }
+    },
+    redirectToReports(){
+      if(this.reportsLink) {
+        this.$router.push(this.reportsLink)
       }
     }
   }
