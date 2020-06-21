@@ -305,7 +305,6 @@ export default {
         ])
       }
     }
-    console.log(studentsData);
     return {
       id: id,
       Class: classData.data,
@@ -326,7 +325,7 @@ export default {
           notification: false,
         }
       }),
-      homework: lessonData.data[0].homework,
+      homework: lessonData.data.length > 0 ? lessonData.data[0].homework : null,
     }
   },
   mounted() {
